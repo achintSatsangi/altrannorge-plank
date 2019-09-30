@@ -23,8 +23,8 @@ public class HelloControllerIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+    public void greetingShouldReturnDefaultMessage() {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/hello",
                 String.class)).contains(WELCOME_MESSAGE);
     }
 }
