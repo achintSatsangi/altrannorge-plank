@@ -8,15 +8,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HelloControllerTest {
 
-    HelloController classToTest;
+    private HelloController classToTest;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         classToTest = new HelloController();
     }
 
     @Test
     public void should_return_correct_message() {
-        assertThat(classToTest.hello()).isEqualTo(WELCOME_MESSAGE + 1);
+        assertThat(classToTest.hello()).isEqualTo(WELCOME_MESSAGE);
     }
 }
