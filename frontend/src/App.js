@@ -5,7 +5,9 @@ import Timer from './Timer/Timer.js';
 
 let map = {
   Start: 'success',
-  Pause: 'outline-light'
+  End: 'success',
+  Pause: 'outline-light',
+  Resume: 'outline-light'
 }
 
 const Button = ( props ) => {
@@ -46,8 +48,8 @@ class App extends Component {
         <header className="App-header">
           <Timer started={started} paused={paused} />
           <div className="d-flex">
-            <Button handleClick={toggleStartTimer} label="Start" />
-            <Button handleClick={togglePauseTimer} label="Pause" />
+            <Button handleClick={toggleStartTimer} label={this.state.started ? 'End': 'Start'} />
+            <Button handleClick={togglePauseTimer} label={this.state.paused ? 'Resume': 'Pause'} />
           </div>
         </header>
       </div>
