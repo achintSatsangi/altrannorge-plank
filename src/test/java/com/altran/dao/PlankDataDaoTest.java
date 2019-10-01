@@ -47,6 +47,16 @@ class PlankDataDaoTest {
     }
 
     @Test
+    void should_fetch_data_for_last_2_days_only() {
+        plankDataDao.insert(new PlankData(5, "CAMILLA", now().minusDays(3), 200));
+        plankDataDao.insert(new PlankData(6, "OLE", now().minusDays(1), 200));
+        List<PlankData> result = plankDataDao.getDataForDays(2);
+        assertThat(result).hasSize(4)
+                .extracting("id", "user")
+                .containsExactly(tuple(1, "ACHINT"), tuple(2, "RUBEN"), tuple(3, "MELISSA"),  tuple(6, "OLE"));
+    }
+
+    @Test
     void should_fetch_by_id() {
         PlankData result = plankDataDao.getDataById(1);
         assertThat(result)

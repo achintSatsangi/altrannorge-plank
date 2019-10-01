@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static java.time.LocalDate.now;
+
 @Repository
 public class PlankDataDao {
 
@@ -22,6 +24,10 @@ public class PlankDataDao {
 
     public List<PlankData> getAllData() {
         return jdbcTemplate.query("SELECT * FROM plank_data", new PlankDataRowMapper());
+    }
+
+    public List<PlankData> getDataForDays(int days) {
+        return jdbcTemplate.query("SELECT * FROM plank_data where date >= ?", new Object[]{now().minusDays(days)}, new PlankDataRowMapper());
     }
 
     public PlankData getDataById(Integer id) {
