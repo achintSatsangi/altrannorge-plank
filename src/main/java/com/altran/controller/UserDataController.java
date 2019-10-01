@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-public class PlankingDataController {
+public class UserDataController {
 
     /**
      * Method for getting as list of users, currently hardcoded in an ENUM

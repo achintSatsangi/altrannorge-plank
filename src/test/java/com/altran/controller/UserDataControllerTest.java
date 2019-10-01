@@ -8,13 +8,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PlankingDataControllerTest {
-    private PlankingDataController classToTest;
+public class UserDataControllerTest {
+    private UserDataController classToTest;
     private List<String> userNames;
 
     @Before
     public void setUp() {
-        classToTest = new PlankingDataController();
+        classToTest = new UserDataController();
         userNames = new ArrayList<>();
         userNames.add("RUBEN");
         userNames.add("ACHINT");
