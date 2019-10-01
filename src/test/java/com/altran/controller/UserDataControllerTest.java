@@ -1,7 +1,7 @@
 package com.altran.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class UserDataControllerTest {
     private UserDataController classToTest;
     private List<String> userNames;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         classToTest = new UserDataController();
         userNames = new ArrayList<>();
@@ -27,7 +27,7 @@ public class UserDataControllerTest {
     }
 
     @Test
-    public void should_return_correct_message() {
+    public void should_return_correct_list() {
         assertThat(classToTest.getUsers()).isEqualTo(userNames);
     }
 }
