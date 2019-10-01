@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/plankdb
+    username: myuser
+    password: mypass
+  hikari:
+    connectionTimeout: 20000
+    maximumPoolSize: 5
