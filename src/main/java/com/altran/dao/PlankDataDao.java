@@ -40,6 +40,16 @@ public class PlankDataDao {
         return plankData;
     }
 
+    /**
+     * Insert a record with a non auto-generated ID
+     * @param plankData
+     * @return PlankData
+     */
+    public PlankData insertById(PlankData plankData) {
+        jdbcTemplate.update("insert into plank_data (id, username, date, plank_time) values (?, ?, ?, ?)",plankData.getId(), plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds());
+        return plankData;
+    }
+
     public PlankData updateById(PlankData plankData) {
         jdbcTemplate.update("update plank_data set username=?, date=?, plank_time=? where id=?", plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds(), plankData.getId());
         return plankData;
