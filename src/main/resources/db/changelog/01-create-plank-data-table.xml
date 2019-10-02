@@ -22,5 +22,19 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="add-constraints" author="RubendeWitte">
+        <addUniqueConstraint
+                columnNames="user, date"
+                constraintName="plank_data_constraint"
+                tableName="plank_data"
+        />
+    </changeSet>
+    <changeSet id="change-column-name" author="RubendeWitte">
+        <renameColumn
+                newColumnName="username"
+                oldColumnName="user"
+                tableName="plank_data"
+        />
+    </changeSet>
 
 </databaseChangeLog>

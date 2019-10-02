@@ -5,19 +5,19 @@ import java.util.Objects;
 
 public class PlankData {
 
-    private final int id;
+    private final Integer id;
     private final String user;
     private final LocalDate date;
     private final int plankTimeInSeconds;
 
-    public PlankData(int id, String user, LocalDate date, int plankTimeInSeconds) {
+    public PlankData(Integer id, String user, LocalDate date, int plankTimeInSeconds) {
         this.id = id;
         this.user = user;
         this.date = date;
         this.plankTimeInSeconds = plankTimeInSeconds;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

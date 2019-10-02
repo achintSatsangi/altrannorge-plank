@@ -47,8 +47,8 @@ class PlankDataControllerIntegrationTest {
         List<PlankData> result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/getData",
                 List.class);
         assertThat(result).hasSize(2)
-                .extracting("id", "user", "date")
-                .containsExactly(tuple(1, "ACHINT", now().toString()), tuple(2, "RUBEN", now().minusDays(5).toString()));
+                .extracting("user", "date")
+                .containsExactly(tuple("ACHINT", now().toString()), tuple("RUBEN", now().minusDays(5).toString()));
     }
 
     @Test
@@ -56,7 +56,27 @@ class PlankDataControllerIntegrationTest {
         List<PlankData> result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/getDataForDays/2",
                 List.class);
         assertThat(result).hasSize(1)
-                .extracting("id", "user", "date")
-                .containsExactly(tuple(1, "ACHINT", now().toString()));
+                .extracting("user", "date")
+                .containsExactly(tuple("ACHINT", now().toString()));
+    }
+
+    @Test
+    void should_save_new_data() {
+        PlankData plankData = new PlankData(null ,"MELISSA", now(), 900);
+        this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
+        PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());
+
+        assertThat((result).equals(plankData));
+    }
+
+    @Test
+    void should_overwrite_data() {
+        PlankData plankData = new PlankData(null, "MELISSA", now(), 900);
+        PlankData plankData2 = new PlankData(null, "MELISSA", now(), 1900);
+        this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
+        this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData2, plankData.getClass());
+        PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());
+
+        assertThat((result).equals(plankData2));
     }
 }
