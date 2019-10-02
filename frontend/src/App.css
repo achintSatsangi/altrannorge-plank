@@ -1,6 +1,13 @@
 .App {
-  background-color: #282c34;
   text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,14 +17,6 @@
   color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.navbar .navbar-brand {
-  margin-right: 0rem;
-}
-
-.navbar .navbar-brand:first-child {
-  border-right: 1px solid grey;
+.App-link {
+  color: #09d3ac;
 }
