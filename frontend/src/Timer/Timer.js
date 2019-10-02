@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import TimerMachine from 'react-timer-machine'
+import './Timer.css'
 
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
@@ -9,15 +10,15 @@ momentDurationFormatSetup(moment);
 
 
 let map = {
+    Pause: 'success',
+    Resume: 'success',
     Start: 'success',
-    End: 'success',
-    Pause: 'outline-light',
-    Resume: 'outline-light'
+    Stop: 'outline-light'
 }
 
 const Button = (props) => {
     let btnType = map[props.label];
-    let className = ['btn', `btn-${btnType}`, 'mr-1'].join(' ');
+    let className = ['btn', 'btn-circle', `btn-${btnType}`].join(' ');
     return <button onClick={props.handleClick} className={className} data-testid={props.label}>{props.label}</button>;
 }
 
@@ -27,7 +28,7 @@ export default class Timer extends Component {
         super(props);
 
         this.state = {
-            paused: false,
+            paused: true,
             started: false
         };
     }
@@ -37,19 +38,21 @@ export default class Timer extends Component {
 
         const toggleStartTimer = () => {
             this.setState({
-                started: !this.state.started
-            });
-        }
-
-        const togglePauseTimer = () => {
-            this.setState({
+                started: true,
                 paused: !this.state.paused
             });
         }
 
+        const stopTimer = () => {
+            this.setState({
+                started: false,
+                paused: true
+            });
+        }
+
         return (
-            <>
-                <div className="d-flex justify-content-center">
+            <section className="timerMachine">
+                <span className="timer">
                     <TimerMachine
                         timeStart={0}
                         timeEnd={0}
@@ -64,12 +67,20 @@ export default class Timer extends Component {
                             console.info(`Timer stopped: ${JSON.stringify(time)}`)
                         }
                     />
+                </span>
+                <div className="d-flex justify-content-between">
+                    <Button handleClick={stopTimer} label={'Stop'} />
+                    <Button handleClick={toggleStartTimer} label={!started ? 'Start' : paused ? 'Resume' : 'Pause'} />
                 </div>
-                <div className="d-flex justify-content-center">
-                    <Button handleClick={toggleStartTimer} label={started ? 'End' : 'Start'} />
-                    <Button handleClick={togglePauseTimer} label={paused ? 'Resume' : 'Pause'} />
+                <div className="mt-5">
+                    <select className="form-control">
+                        <option>Achint</option>
+                        <option>Roben</option>
+                        <option>Melissa</option>
+                    </select>
+                    <button className="btn btn-success btn-block mt-3">Save</button>
                 </div>
-            </>
+            </section>
         )
     }
 }
