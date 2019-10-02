@@ -49,7 +49,7 @@ export default class Timer extends Component {
 
         return (
             <>
-                <div className="d-flex">
+                <div className="d-flex justify-content-center">
                     <TimerMachine
                         timeStart={0}
                         timeEnd={0}
@@ -65,7 +65,7 @@ export default class Timer extends Component {
                         }
                     />
                 </div>
-                <div className="d-flex">
+                <div className="d-flex justify-content-center">
                     <Button handleClick={toggleStartTimer} label={started ? 'End' : 'Start'} />
                     <Button handleClick={togglePauseTimer} label={paused ? 'Resume' : 'Pause'} />
                 </div>
