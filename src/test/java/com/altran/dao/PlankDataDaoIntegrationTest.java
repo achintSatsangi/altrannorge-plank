@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class PlankDataDaoTest {
+class PlankDataDaoIntegrationTest {
 
     @Autowired
     private PlankDataDao plankDataDao;
@@ -72,14 +72,26 @@ class PlankDataDaoTest {
     }
 
     @Test
+    void should_create_by_id() {
+        PlankData obj = new PlankData(555, "PK", now(), 200);
+        PlankData result = plankDataDao.insertById(obj);
+
+        assertThat(result).isEqualTo(obj);
+
+        PlankData fetchResult = plankDataDao.getDataById(555);
+        assertThat(fetchResult).isEqualTo(obj);
+    }
+
+    @Test
     void should_create() {
-        PlankData obj = new PlankData(12, "PK", now(), 200);
+        PlankData obj = new PlankData(null, "PK", now(), 200);
         PlankData result = plankDataDao.insert(obj);
 
         assertThat(result).isEqualTo(obj);
 
         PlankData fetchResult = plankDataDao.getByUserAndDate("PK", now());
-        assertThat(fetchResult).isEqualTo(obj);
+        assertThat(fetchResult) .extracting("user", "date", "plankTimeInSeconds")
+                .containsExactly("PK", now(), 200);
     }
 
     @Test

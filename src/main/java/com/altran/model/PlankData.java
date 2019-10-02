@@ -48,7 +48,7 @@ public class PlankData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlankData plankData = (PlankData) o;
-        return id == plankData.id &&
+        return id.equals(plankData.id) &&
                 plankTimeInSeconds == plankData.plankTimeInSeconds &&
                 Objects.equals(user, plankData.user) &&
                 Objects.equals(date, plankData.date);
