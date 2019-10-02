@@ -62,7 +62,7 @@ class PlankDataControllerIntegrationTest {
 
     @Test
     void should_save_new_data() {
-        PlankData plankData = new PlankData(null ,"MELISSA", now(), 900);
+        PlankData plankData = new PlankData("MELISSA", now(), 900);
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
         PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());
 
@@ -71,8 +71,8 @@ class PlankDataControllerIntegrationTest {
 
     @Test
     void should_overwrite_data() {
-        PlankData plankData = new PlankData(null, "MELISSA", now(), 900);
-        PlankData plankData2 = new PlankData(null, "MELISSA", now(), 1900);
+        PlankData plankData = new PlankData("MELISSA", now(), 900);
+        PlankData plankData2 = new PlankData("MELISSA", now(), 1900);
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData2, plankData.getClass());
         PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());

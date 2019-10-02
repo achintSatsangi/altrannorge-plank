@@ -20,12 +20,13 @@ public class PlankDataController {
     }
 
     @GetMapping("getData")
-        public List<PlankData> getData() {
-            return plankDataDao.getAllData();
-        }
+    public List<PlankData> getData() {
+        return plankDataDao.getAllData();
+    }
 
     /**
      * Either saves a new PlankData for a specific user and date, or if already found overwrites the data
+     *
      * @param plankData
      */
     @PostMapping("postData")
@@ -35,12 +36,11 @@ public class PlankDataController {
         } catch (DuplicateKeyException e) {
             plankDataDao.updateByUserAndDate(plankData);
         }
-
     }
 
-        @GetMapping("getDataForDays/{days}")
-        public List<PlankData> getDataForDays(@PathVariable("days") Integer days) {
-            return plankDataDao.getDataForDays(days);
+    @GetMapping("getDataForDays/{days}")
+    public List<PlankData> getDataForDays(@PathVariable("days") Integer days) {
+        return plankDataDao.getDataForDays(days);
     }
 
 }

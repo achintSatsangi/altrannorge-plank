@@ -1,5 +1,7 @@
 package com.altran.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -10,8 +12,16 @@ public class PlankData {
     private final LocalDate date;
     private final int plankTimeInSeconds;
 
+    @JsonCreator
     public PlankData(Integer id, String user, LocalDate date, int plankTimeInSeconds) {
         this.id = id;
+        this.user = user;
+        this.date = date;
+        this.plankTimeInSeconds = plankTimeInSeconds;
+    }
+
+    public PlankData(String user, LocalDate date, int plankTimeInSeconds) {
+        this.id = null;
         this.user = user;
         this.date = date;
         this.plankTimeInSeconds = plankTimeInSeconds;

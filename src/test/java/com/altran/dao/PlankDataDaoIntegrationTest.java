@@ -26,9 +26,9 @@ class PlankDataDaoIntegrationTest {
 
     @BeforeEach
     void setup() {
-        plankDataDao.insert(new PlankData(null, "ACHINT", now(), 100));
-        plankDataDao.insert(new PlankData(null, "RUBEN", now(), 500));
-        plankDataDao.insert(new PlankData(null, "MELISSA", now(), 200));
+        plankDataDao.insert(new PlankData("ACHINT", now(), 100));
+        plankDataDao.insert(new PlankData( "RUBEN", now(), 500));
+        plankDataDao.insert(new PlankData("MELISSA", now(), 200));
     }
 
     @AfterEach
@@ -46,8 +46,8 @@ class PlankDataDaoIntegrationTest {
 
     @Test
     void should_fetch_data_for_last_2_days_only() {
-        plankDataDao.insert(new PlankData(null, "CAMILLA", now().minusDays(3), 200));
-        plankDataDao.insert(new PlankData(null, "OLE", now().minusDays(1), 200));
+        plankDataDao.insert(new PlankData("CAMILLA", now().minusDays(3), 200));
+        plankDataDao.insert(new PlankData("OLE", now().minusDays(1), 200));
         List<PlankData> result = plankDataDao.getDataForDays(2);
         assertThat(result).hasSize(4)
                 .extracting("user")
@@ -84,7 +84,7 @@ class PlankDataDaoIntegrationTest {
 
     @Test
     void should_create() {
-        PlankData obj = new PlankData(null, "PK", now(), 200);
+        PlankData obj = new PlankData("PK", now(), 200);
         PlankData result = plankDataDao.insert(obj);
 
         assertThat(result).isEqualTo(obj);
