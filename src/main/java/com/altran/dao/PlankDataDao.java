@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.now;
@@ -35,18 +36,38 @@ public class PlankDataDao {
     }
 
     public PlankData insert(PlankData plankData) {
-        jdbcTemplate.update("insert into plank_data values (?, ?, ?, ?)", plankData.getId(), plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds());
+        jdbcTemplate.update("insert into plank_data (username, date, plank_time) values ( ?, ?, ?)", plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds());
+        return plankData;
+    }
+
+    /**
+     * Insert a record with a non auto-generated ID
+     * @param plankData
+     * @return PlankData
+     */
+    public PlankData insertById(PlankData plankData) {
+        jdbcTemplate.update("insert into plank_data (id, username, date, plank_time) values (?, ?, ?, ?)",plankData.getId(), plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds());
         return plankData;
     }
 
     public PlankData updateById(PlankData plankData) {
-        jdbcTemplate.update("update plank_data set user=?, date=?, plank_time=? where id=?", plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds(), plankData.getId());
+        jdbcTemplate.update("update plank_data set username=?, date=?, plank_time=? where id=?", plankData.getUser(), plankData.getDate(), plankData.getPlankTimeInSeconds(), plankData.getId());
         return plankData;
     }
 
     public PlankData updateByUserAndDate(PlankData plankData) {
-        jdbcTemplate.update("update plank_data set plank_time=? where user=? and date=?,", plankData.getPlankTimeInSeconds(), plankData.getUser(), plankData.getDate());
+        jdbcTemplate.update("update plank_data set plank_time=? where username=? and date=?", plankData.getPlankTimeInSeconds(), plankData.getUser(), plankData.getDate());
         return plankData;
+    }
+
+    /**
+     * Gets a record based on the username and date
+     * @param username String username to look for
+     * @param date date to look for
+     * @return PlankData
+     */
+    public PlankData getByUserAndDate(String username, LocalDate date) {
+        return (PlankData) jdbcTemplate.queryForObject("SELECT * FROM plank_data Where username=? AND date=?", new Object[]{username, date}, new PlankDataRowMapper());
     }
 
     public boolean delete(Integer id) {
@@ -60,7 +81,7 @@ public class PlankDataDao {
     public class PlankDataRowMapper implements RowMapper
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new PlankData(rs.getInt("id"), rs.getString("user"), rs.getDate("date").toLocalDate(), rs.getInt("plank_time"));
+            return new PlankData(rs.getInt("id"), rs.getString("username"), rs.getDate("date").toLocalDate(), rs.getInt("plank_time"));
         }
     }
 }
