@@ -9,12 +9,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="container">
-          <Router>
-            <Timer path="/" />
-            <Graph path="graph" />
-          </Router>
-        </div>
+        <Router>
+          <Timer path="/" />
+          <Graph path="graph" />
+        </Router>
         <NavigationMenu />
       </div>
     );
