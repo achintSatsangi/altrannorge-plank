@@ -37,8 +37,8 @@ mvn spring-boot:run
 
 ### Backend Only
 
-Bundling and deploying node modules takes a lot of time. While developing one might feel that they just need execute the 
-backend and not worry about the frontend build much like while making db changes using liquibase, executing tests or 
+Bundling and deploying node modules takes a lot of time. While developing one might feel that they just need to execute 
+the backend and not worry about the frontend build much like while making db changes using liquibase, executing tests or 
 changing REST endpoints. To allow for that we have added a new maven profile which simply compiles the backend and 
 execute its tests to use the same add `-Pbackend` to your commands. For e.g.
 
