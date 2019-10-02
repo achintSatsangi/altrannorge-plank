@@ -23,11 +23,26 @@ executing the tests.
 
 ## Useful commands
 For application build and test execution
-
-`mvn clean install`
+```
+mvn clean install
+```
 
 ## For running the application
 
 - Maven Spring boot starter plugin (Recommended... it supports remote debugging on port 5005)
 
-`mvn spring-boot:run`
+```
+mvn spring-boot:run
+```
+
+### Backend Only
+
+Bundling and deploying node modules takes a lot of time. While developing one might feel that they just need to execute 
+the backend and not worry about the frontend build much like while making db changes using liquibase, executing tests or 
+changing REST endpoints. To allow for that we have added a new maven profile which simply compiles the backend and 
+execute its tests to use the same add `-Pbackend` to your commands. For e.g.
+
+```
+mvn clean install -Pbackend
+mvn spring-boot:run -Pbackend
+```   
