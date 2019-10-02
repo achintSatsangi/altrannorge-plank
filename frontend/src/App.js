@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import './App.css';
 import Timer from './Timer/Timer.js';
 import Graph from './Graph/Graph.js';
+import NavigationMenu from './NavigationMenu/NavigationMenu';
 
 class App extends Component {
   render() {
@@ -14,14 +15,7 @@ class App extends Component {
             <Graph path="graph" />
           </Router>
         </div>
-        <nav className="navbar fixed-bottom navbar-dark bg-dark">
-          <Link to="/" className="navbar-brand flex-fill">
-            <i className="material-icons icon-l">timer</i>
-          </Link>
-          <Link to="graph" className="navbar-brand flex-fill">
-            <i className="material-icons icon-l">emoji_events</i>
-          </Link>
-        </nav>
+        <NavigationMenu />
       </div>
     );
   }
