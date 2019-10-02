@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: ./db/changelog/01-create-plank-data-table.xml
+  - include:
+      file: ./db/changelog/02-load-historical-data.xml
