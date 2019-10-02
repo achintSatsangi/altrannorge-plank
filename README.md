@@ -23,14 +23,17 @@ executing the tests.
 
 ## Useful commands
 For application build and test execution
-
-`mvn clean install`
+```
+mvn clean install
+```
 
 ## For running the application
 
 - Maven Spring boot starter plugin (Recommended... it supports remote debugging on port 5005)
 
-`mvn spring-boot:run`
+```
+mvn spring-boot:run
+```
 
 ### Backend Only
 
