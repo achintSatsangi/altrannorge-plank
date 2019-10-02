@@ -142,7 +142,7 @@ export default class Graph extends Component {
     };
     return (
       <div className="Linechart">
-        <div>Plank Progress</div>
+        <div>Plank Progress (Mock data)</div>
         <Line data={data} options={options} />
       </div>
     );
