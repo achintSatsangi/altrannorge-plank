@@ -45,6 +45,7 @@ export default class Timer extends Component {
   render() {
     const { started, paused } = this.state;
     let savedTime = 0;
+    let selectedUser = '';
 
     const toggleStartTimer = () => {
       this.setState({
@@ -62,8 +63,8 @@ export default class Timer extends Component {
 
     const onSave = () => {
         axios.post('plank/postData', {
-            username: 'Melissa',
-            date: Date.now(),
+            username: this.selectedUser,
+            date: moment().format('YYYY-MM-DD'),
             plank_time: this.savedTime
           })
           .then(function (response) {
@@ -76,6 +77,10 @@ export default class Timer extends Component {
 
     const onTimerStop = (time) => {
         this.savedTime = time.m * 60 + time.s;
+    }
+
+    const onChange = (e) => {
+        this.selectedUser = e.target.value;
     }
 
     return (
@@ -102,7 +107,7 @@ export default class Timer extends Component {
           />
         </div>
         <div className="mt-5">
-          <UserSelection />
+          <UserSelection handleChange={(event) => onChange(event)}/>
           <button type="button" onClick={onSave} className="btn btn-success btn-block mt-3">Save</button>
         </div>
       </section>

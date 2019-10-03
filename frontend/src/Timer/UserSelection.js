@@ -26,6 +26,6 @@ export default class UserSelection extends Component {
       const options = this.state.users.map(user => (
         <option key={user}>{user}</option>
       ));
-      return <select className="form-control">{options}</select>;
+      return <select onChange={(event) => this.props.handleChange(event)} className="form-control">{options}</select>;
     }
   }
