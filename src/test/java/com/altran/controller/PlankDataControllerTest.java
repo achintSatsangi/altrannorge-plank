@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
+import static com.altran.user.User.CAMILLA;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -26,7 +27,7 @@ class PlankDataControllerTest {
 
     @Test
     void should_get_all_data_from_dao() {
-        List<PlankData> toBeReturnedFromDao = List.of(new PlankData(5, "CAMILLA", now().minusDays(3), 200));
+        List<PlankData> toBeReturnedFromDao = List.of(new PlankData(5, CAMILLA, now().minusDays(3), 200));
         when(mockPlankDataDao.getAllData()).thenReturn(toBeReturnedFromDao);
 
         List<PlankData> result = classToTest.getData();
@@ -36,7 +37,7 @@ class PlankDataControllerTest {
 
     @Test
     void should_get_data_for_last_days_from_dao() {
-        List<PlankData> toBeReturnedFromDao = List.of(new PlankData(5, "CAMILLA", now().minusDays(3), 200));
+        List<PlankData> toBeReturnedFromDao = List.of(new PlankData(5, CAMILLA, now().minusDays(3), 200));
         when(mockPlankDataDao.getDataForDays(2)).thenReturn(toBeReturnedFromDao);
 
         List<PlankData> result = classToTest.getDataForDays(2);

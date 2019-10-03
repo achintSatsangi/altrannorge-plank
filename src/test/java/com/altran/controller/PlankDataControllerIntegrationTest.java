@@ -14,6 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
+import static com.altran.user.User.ACHINT;
+import static com.altran.user.User.MELISSA;
+import static com.altran.user.User.RUBEN;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
@@ -33,8 +36,8 @@ class PlankDataControllerIntegrationTest {
 
     @BeforeEach
     void setup() {
-        plankDataDao.insert(new PlankData(1, "ACHINT", now(), 100));
-        plankDataDao.insert(new PlankData(2, "RUBEN", now().minusDays(5), 500));
+        plankDataDao.insert(new PlankData(1, ACHINT, now(), 100));
+        plankDataDao.insert(new PlankData(2, RUBEN, now().minusDays(5), 500));
     }
 
     @AfterEach
@@ -48,7 +51,7 @@ class PlankDataControllerIntegrationTest {
                 List.class);
         assertThat(result).hasSize(2)
                 .extracting("user", "date")
-                .containsExactly(tuple("ACHINT", now().toString()), tuple("RUBEN", now().minusDays(5).toString()));
+                .containsExactly(tuple(ACHINT.name(), now().toString()), tuple(RUBEN.name(), now().minusDays(5).toString()));
     }
 
     @Test
@@ -57,25 +60,25 @@ class PlankDataControllerIntegrationTest {
                 List.class);
         assertThat(result).hasSize(1)
                 .extracting("user", "date")
-                .containsExactly(tuple("ACHINT", now().toString()));
+                .containsExactly(tuple(ACHINT.name(), now().toString()));
     }
 
     @Test
     void should_save_new_data() {
-        PlankData plankData = new PlankData("MELISSA", now(), 900);
+        PlankData plankData = new PlankData(MELISSA, now(), 900);
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
-        PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());
+        PlankData result = plankDataDao.getByUserAndDate(MELISSA, now());
 
         assertThat((result).equals(plankData));
     }
 
     @Test
     void should_overwrite_data() {
-        PlankData plankData = new PlankData("MELISSA", now(), 900);
-        PlankData plankData2 = new PlankData("MELISSA", now(), 1900);
+        PlankData plankData = new PlankData(MELISSA, now(), 900);
+        PlankData plankData2 = new PlankData(MELISSA, now(), 1900);
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData, plankData.getClass());
         this.restTemplate.postForObject("http://localhost:" + port + "/plank/postData", plankData2, plankData.getClass());
-        PlankData result = plankDataDao.getByUserAndDate("MELISSA", now());
+        PlankData result = plankDataDao.getByUserAndDate(MELISSA, now());
 
         assertThat((result).equals(plankData2));
     }
