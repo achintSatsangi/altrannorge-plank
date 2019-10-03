@@ -1,6 +1,5 @@
 package com.altran.controller;
 
-import com.altran.converter.PlankDataToGraphDataConverter;
 import com.altran.dao.PlankDataDao;
 import com.altran.model.PlankData;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,13 +18,11 @@ class PlankDataControllerTest {
 
     private PlankDataController classToTest;
     private PlankDataDao mockPlankDataDao;
-    private PlankDataToGraphDataConverter mockConverter;
 
     @BeforeEach
     void setUp() {
         mockPlankDataDao = mock(PlankDataDao.class);
-        mockConverter = mock(PlankDataToGraphDataConverter.class);
-        classToTest = new PlankDataController(mockPlankDataDao, mockConverter);
+        classToTest = new PlankDataController(mockPlankDataDao);
     }
 
     @Test
