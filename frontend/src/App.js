@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="container">
+        <div className="container-fluid">
           <Router>
             <Timer path="/" />
             <Graph path="graph" />
