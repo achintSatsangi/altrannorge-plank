@@ -16,3 +16,5 @@
 .idea
 .java-version
 /target
+
+/node_modules
