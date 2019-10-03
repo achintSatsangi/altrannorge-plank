@@ -13,9 +13,9 @@ export default class Graph extends Component {
   }
 
   async componentDidMount() {
-    const response = await Axios.get("/plank/getAllDataForGraph")
+    await Axios.get("/plank/getAllDataForGraph")
       .then(response => this.setState({ graphData: response.data }))
-      .then(error => console.log(error));
+      .catch(error => console.log(error));
   }
 
   render() {
