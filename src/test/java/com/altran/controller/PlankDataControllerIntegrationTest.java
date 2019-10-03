@@ -51,7 +51,7 @@ class PlankDataControllerIntegrationTest {
                 List.class);
         assertThat(result).hasSize(2)
                 .extracting("user", "date")
-                .containsExactly(tuple(ACHINT.name(), now().toString()), tuple(RUBEN.name(), now().minusDays(5).toString()));
+                .containsExactly(tuple(RUBEN.name(), now().minusDays(5).toString()), tuple(ACHINT.name(), now().toString()));
     }
 
     @Test
