@@ -1,6 +1,7 @@
 package com.altran.controller;
 
 import com.altran.dao.PlankDataDao;
+import com.altran.model.GraphData;
 import com.altran.model.PlankData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,5 +82,14 @@ class PlankDataControllerIntegrationTest {
         PlankData result = plankDataDao.getByUserAndDate(MELISSA, now());
 
         assertThat((result).equals(plankData2));
+    }
+
+    @Test
+    void should_fetch_graph_data() {
+        String result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/getAllDataForGraph", String.class);
+        assertThat(result).isNotEmpty();
+        assertThat(result).contains("labels", "dataSets");
+        // Not able to control order of objects. it is different across intellij and maven runs so it creates problems
+        // in CI builds.. so doing simpler checks for now
     }
 }
