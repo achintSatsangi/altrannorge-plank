@@ -13,7 +13,7 @@ export default class UserSelection extends Component {
   
     componentDidMount() {
       axios
-        .get("http://localhost:8080/users")
+        .get("users")
         .then(response => {
           this.setState({ users: response.data });
         })

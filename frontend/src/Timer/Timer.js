@@ -11,25 +11,24 @@ momentDurationFormatSetup(moment);
 const axios = require("axios");
 
 
-let map = {
-  Pause: "success",
-  Resume: "success",
-  Start: "success",
-  Stop: "outline-light"
-};
-
 const Button = props => {
-  let btnType = map[props.label];
-  let className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
-  return (
-    <button
-      onClick={props.handleClick}
-      className={className}
-      data-testid={props.label}
-    >
-      {props.label}
-    </button>
-  );
+    let map = {
+        Pause: "success",
+        Resume: "success",
+        Start: "success",
+        Stop: "outline-light"
+        };
+    let btnType = map[props.label];
+    let className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
+    return (
+        <button
+        onClick={props.handleClick}
+        className={className}
+        data-testid={props.label}
+        >
+        {props.label}
+        </button>
+    );
 };
 
 
@@ -45,6 +44,7 @@ export default class Timer extends Component {
 
   render() {
     const { started, paused } = this.state;
+    let savedTime = 0;
 
     const toggleStartTimer = () => {
       this.setState({
@@ -60,6 +60,24 @@ export default class Timer extends Component {
       });
     };
 
+    const onSave = () => {
+        axios.post('plank/postData', {
+            username: 'Melissa',
+            date: Date.now(),
+            plank_time: this.savedTime
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+    const onTimerStop = (time) => {
+        this.savedTime = time.m * 60 + time.s;
+    }
+
     return (
       <section className="timerMachine">
         <span className="timer">
@@ -73,9 +91,7 @@ export default class Timer extends Component {
             formatTimer={(time, ms) =>
               moment.duration(ms, "milliseconds").format("h:mm:ss")
             }
-            onStop={time =>
-              console.info(`Timer stopped: ${JSON.stringify(time)}`)
-            }
+            onStop={time => onTimerStop(time)}
           />
         </span>
         <div className="d-flex justify-content-between">
@@ -87,7 +103,7 @@ export default class Timer extends Component {
         </div>
         <div className="mt-5">
           <UserSelection />
-          <button type="button" className="btn btn-success btn-block mt-3">Save</button>
+          <button type="button" onClick={onSave} className="btn btn-success btn-block mt-3">Save</button>
         </div>
       </section>
     );
