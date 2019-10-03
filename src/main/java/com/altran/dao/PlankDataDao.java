@@ -25,11 +25,11 @@ public class PlankDataDao {
     }
 
     public List<PlankData> getAllData() {
-        return jdbcTemplate.query("SELECT * FROM plank_data", new PlankDataRowMapper());
+        return jdbcTemplate.query("SELECT * FROM plank_data order by date", new PlankDataRowMapper());
     }
 
     public List<PlankData> getDataForDays(int days) {
-        return jdbcTemplate.query("SELECT * FROM plank_data where date >= ?", new Object[]{now().minusDays(days)}, new PlankDataRowMapper());
+        return jdbcTemplate.query("SELECT * FROM plank_data where date >= ?  order by date", new Object[]{now().minusDays(days)}, new PlankDataRowMapper());
     }
 
     public PlankData getDataById(Integer id) {

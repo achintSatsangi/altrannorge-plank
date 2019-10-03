@@ -57,7 +57,7 @@ class PlankDataDaoIntegrationTest {
         List<PlankData> result = plankDataDao.getDataForDays(2);
         assertThat(result).hasSize(4)
                 .extracting("user")
-                .contains(ACHINT, RUBEN, MELISSA, OLE);
+                .containsExactly(OLE, ACHINT, RUBEN, MELISSA);
     }
 
     @Test

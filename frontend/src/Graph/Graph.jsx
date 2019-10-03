@@ -28,7 +28,7 @@ export default class Graph extends Component {
           pointHoverBackgroundColor: "#9CF196",
           pointBorderWidth: 1,
           // notice the gap in the data and the spanGaps: true
-          data: [45, 52, 66, 12, 56, 89, 90, , 425, 200, 100, 90],
+          data: [45, 52, 66, 12, 56, 89, 90, null, 425, 200, 100, 90],
           spanGaps: false
         },
         {
@@ -39,7 +39,7 @@ export default class Graph extends Component {
           pointHoverBackgroundColor: "#ECEBA7",
           pointBorderWidth: 1,
           // notice the gap in the data and the spanGaps: true
-          data: [65, 59, 80, 81, 56, 55, 40, , 60, 55, 30, 78],
+          data: [65, 59, 80, 81, 56, 55, 40, null, 60, 55, 30, 78],
           spanGaps: false
         },
         {
@@ -50,7 +50,7 @@ export default class Graph extends Component {
           pointHoverBackgroundColor: "#EDAAAA",
           pointBorderWidth: 1,
           // notice the gap in the data and the spanGaps: true
-          data: [50, 80, 70, 56, 34, , 23, 34, 98, 120, 90, 40],
+          data: [50, 80, 70, 56, 34, null, 23, 34, 98, 120, 90, 40],
           spanGaps: false
         },
         {
@@ -61,7 +61,7 @@ export default class Graph extends Component {
           pointHoverBackgroundColor: "#b1e8ed",
           pointBorderWidth: 1,
           // notice the gap in the data and the spanGaps: true
-          data: [40, 90, 30, 106, 24, , , , 42, 200, 75, 80],
+          data: [40, 90, 30, 500, 500, null, null, , 42, 200, 75, 80],
           spanGaps: false
         },
         {

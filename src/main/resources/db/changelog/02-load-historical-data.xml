@@ -13,7 +13,7 @@
                       file="./db/changelog/data_load_plank.csv"
                       separator=";"
                       tableName="plank_data">
-                <column name="user" type="STRING"/>
+                <column name="username" type="STRING"/>
                 <column name="date" type="DATE"/>
                 <column name="plank_time" type="NUMERIC"/>
             </loadData>
