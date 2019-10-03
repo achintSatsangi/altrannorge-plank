@@ -63,7 +63,7 @@ export default class Timer extends Component {
 
     const onSave = () => {
         axios.post('plank/postData', {
-            username: this.selectedUser,
+            user: this.selectedUser,
             date: moment().format('YYYY-MM-DD'),
             plankTimeInSeconds: this.savedTime
           })
