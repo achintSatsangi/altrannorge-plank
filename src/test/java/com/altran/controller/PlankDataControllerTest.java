@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.altran.user.User.CAMILLA;
@@ -55,7 +54,7 @@ class PlankDataControllerTest {
     @Test
     void should_get_converted_data_for_graphs() {
         when(mockPlankDataDao.getAllData()).thenReturn(toBeReturnedFromDao);
-        GraphData graphData = new GraphData(Set.of(now()), List.of(new DataSet(CAMILLA, List.of(1, 2))));
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(CAMILLA, List.of(1, 2))));
         when(mockConverter.convert(toBeReturnedFromDao)).thenReturn(graphData);
 
         GraphData result = classToTest.getAllDataForGraph();

@@ -2,8 +2,6 @@ package com.altran.converter;
 
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
-import org.assertj.core.api.Assertions;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -41,9 +39,9 @@ class PlankDataToGraphDataConverterTest {
                 .contains(now().minusDays(2), now());
         assertThat(result.getDataSets()).hasSize(2)
                 .extracting("user", "fill", "lineTension", "spanGaps", "pointBorderWidth", "borderColor")
-                .contains(tuple(ACHINT, false, 0.1, false, 1, ACHINT.getColor()), tuple(RUBEN, false, 0.1, false, 1, RUBEN.getColor()));
+                .contains(tuple(ACHINT, false, 0.1, true, 1, ACHINT.getColor()), tuple(RUBEN, false, 0.1, true, 1, RUBEN.getColor()));
 
         assertThat(result.getDataSets()).hasSize(2);
-        assertThat(result.getDataSets().stream().flatMap(d -> d.getData().stream()).collect(Collectors.toList())).contains(500, null, 100);
+        assertThat(result.getDataSets().stream().flatMap(d -> d.getData().stream()).collect(Collectors.toList())).containsExactly(100, null, null, 500);
     }
 }

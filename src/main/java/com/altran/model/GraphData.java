@@ -1,20 +1,23 @@
 package com.altran.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 public class GraphData {
 
-    private final Set<LocalDate> labels;
+    private final List<LocalDate> labels;
+
+    @JsonProperty("datasets")
     private final List<DataSet> dataSets;
 
-    public GraphData(Set<LocalDate> labels, List<DataSet> dataSets) {
+    public GraphData(List<LocalDate> labels, List<DataSet> dataSets) {
         this.labels = labels;
         this.dataSets = dataSets;
     }
 
-    public Set<LocalDate> getLabels() {
+    public List<LocalDate> getLabels() {
         return labels;
     }
 
