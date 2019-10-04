@@ -68,7 +68,7 @@ export default class Graph extends Component {
     return (
       <div className="Linechart">
         <div>Plank Progress</div>
-        <div className="text-danger" hidden={this.state.hideMessage}>
+        <div className="alert alert-danger" hidden={this.state.hideMessage}>
           {this.state.message}
         </div>
         <Line data={this.state.graphData} options={options} redraw={true} />
