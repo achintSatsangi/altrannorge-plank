@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { navigate } from "@reach/router"
 
 import TimerMachine from "react-timer-machine";
 import "./Timer.css";
@@ -38,14 +39,14 @@ export default class Timer extends Component {
 
     this.state = {
       paused: true,
-      started: false
+      started: false,
+      selectedUser: ''
     };
   }
 
   render() {
     const { started, paused } = this.state;
     let savedTime = 0;
-    let selectedUser = '';
 
     const toggleStartTimer = () => {
       this.setState({
@@ -63,12 +64,12 @@ export default class Timer extends Component {
 
     const onSave = () => {
         axios.post('plank/postData', {
-            user: this.selectedUser,
+            user: this.state.selectedUser,
             date: moment().format('YYYY-MM-DD'),
-            plankTimeInSeconds: this.savedTime
+            plankTimeInSeconds: this.savedTime || 0
           })
           .then(function (response) {
-            console.log(response);
+            navigate('graph');
           })
           .catch(function (error) {
             console.log(error);
@@ -80,7 +81,7 @@ export default class Timer extends Component {
     }
 
     const onChange = (e) => {
-        this.selectedUser = e.target.value;
+      this.setState({selectedUser: e.target.value});
     }
 
     return (
@@ -107,8 +108,8 @@ export default class Timer extends Component {
           />
         </div>
         <div className="mt-5">
-          <UserSelection handleChange={(event) => onChange(event)}/>
-          <button type="button" onClick={onSave} className="btn btn-success btn-block mt-3">Save</button>
+          <UserSelection handleChange={(event) => onChange(event)} selectedUser={this.state.selectedUser}/>
+          <button type="button" onClick={onSave} disabled={!this.state.selectedUser} className="btn btn-success btn-block mt-3">Save</button>
         </div>
       </section>
     );
