@@ -8,14 +8,29 @@ export default class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      graphData: {}
+      graphData: {},
+      message: "",
+      hideMessage: true
     };
   }
 
   async componentDidMount() {
     await Axios.get("/plank/getAllDataForGraph")
-      .then(response => this.setState({ graphData: response.data }))
-      .catch(error => console.log(error));
+      .then(response =>
+        this.setState({
+          graphData: response.data,
+          message: "",
+          hideMessage: true
+        })
+      )
+      .catch(error => {
+        this.setState({
+          graphData: {},
+          message: "Oops!!! Something went wrong",
+          hideMessage: false
+        });
+        console.log(error);
+      });
   }
 
   render() {
@@ -53,6 +68,9 @@ export default class Graph extends Component {
     return (
       <div className="Linechart">
         <div>Plank Progress</div>
+        <div className="text-danger" hidden={this.state.hideMessage}>
+          {this.state.message}
+        </div>
         <Line data={this.state.graphData} options={options} redraw={true} />
       </div>
     );
