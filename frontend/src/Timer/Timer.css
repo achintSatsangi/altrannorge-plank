@@ -19,10 +19,10 @@
 }
 
 .btn-circle {
-    display: block;
-    height: 5rem;
-    width: 5rem;
+    height: 4rem;
+    width: 4rem;
     border-radius: 50%;
+    padding: 0rem;
 }
 
 .form-control, .form-control:focus {
