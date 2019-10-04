@@ -15,7 +15,9 @@ export default class UserSelection extends Component {
       axios
         .get("users")
         .then(response => {
-          this.setState({ users: response.data });
+          const users = Array.from(response.data);
+          users.unshift('');
+          this.setState({ users: users });
         })
         .catch(error => {
           console.log(error);
@@ -23,9 +25,12 @@ export default class UserSelection extends Component {
     }
   
     render() {
-      const options = this.state.users.map(user => (
-        <option key={user}>{user}</option>
+      const options = this.state.users.map((user, index) => (
+        <option key={index} value={user} disabled={!user}>{user || 'SELECT USER'}</option>
       ));
-      return <select onChange={(event) => this.props.handleChange(event)} className="form-control">{options}</select>;
+      return <select 
+        onChange={(event) => this.props.handleChange(event)} 
+        value={this.props.selectedUser} 
+        className="form-control text-center">{options}</select>;
     }
   }
