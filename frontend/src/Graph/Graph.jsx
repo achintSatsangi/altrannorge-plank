@@ -74,6 +74,10 @@ export default class Graph extends Component {
           usePointStyle: true,
           boxWidth: 10
         }
+      },
+      tooltips: {
+        mode: 'nearest',
+        intersect: false
       }
     };
     return (
