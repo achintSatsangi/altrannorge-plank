@@ -15,7 +15,7 @@
     margin: 1rem;
     font-size: 3rem;
     font-weight: 600;
-    color: #6c6c6c;
+    color: #786022;
     border-radius: 50%;
     height: 10rem;
     width: 10rem;
@@ -36,10 +36,10 @@
     -moz-appearance: none;
     appearance: none;
 
-    color: #6c6c6c;
+    color: #786022;
     text-align: center;
     background-color: inherit;
-    border: 1px solid #6c6c6c;
+    border: 1px solid #786022;
     border-width: 0px 0px 1px;
     border-radius: 0px;
     font-weight: 600;

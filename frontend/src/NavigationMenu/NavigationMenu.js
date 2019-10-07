@@ -8,8 +8,8 @@ const NavLink = props => (
     getProps={({ isCurrent }) => {
       return {
         style: {
-          color: isCurrent ? "#6c6c6c" : "#a9a49a",
-          borderBottom: isCurrent ? "5px solid #6c6c6c" : "inherit",
+          color: isCurrent ? "#786022" : "#d4cfc6",
+          borderBottom: isCurrent ? "5px solid #786022" : "inherit",
         }
       };
     }}
