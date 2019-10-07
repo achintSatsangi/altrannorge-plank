@@ -12,24 +12,26 @@ import momentDurationFormatSetup from "moment-duration-format";
 momentDurationFormatSetup(moment);
 
 const Button = props => {
-  let map = {
+  const btnTypeMap = {
     Pause: "start",
-    Resume: "start",
     Start: "start",
     Stop: "stop"
   };
-  let btnType = map[props.label];
-  let className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
+  const iconNameMap = {
+    Pause: "pause",
+    Start: "play_arrow",
+    Stop: "stop"
+  };
+  const btnType = btnTypeMap[props.label];
+  const className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
+  const iconName = iconNameMap[props.label];
   return (
     <button
       onClick={props.handleClick}
       className={className}
       data-testid={props.label}
     >
-    {btnType === 'start' ? 
-    <i className="material-icons icon-l">play_arrow</i> :
-    <i className="material-icons icon-l">stop</i>
-}
+    <i className="material-icons icon-l">{iconName}</i>
     </button>
   );
 };
@@ -90,7 +92,7 @@ export default class Timer extends Component {
           <Button handleClick={this.stopTimer} label={"Stop"} />
           <div className="timer">
             <TimerMachine
-              timeStart={3000000}
+              timeStart={0}
               timeEnd={0}
               started={started}
               paused={paused}
@@ -104,7 +106,7 @@ export default class Timer extends Component {
           </div>
           <Button
             handleClick={this.toggleStartTimer}
-            label={!started ? "Start" : paused ? "Resume" : "Pause"}
+            label={started && !paused ? "Pause" : "Start"}
           />
         </div>
 
