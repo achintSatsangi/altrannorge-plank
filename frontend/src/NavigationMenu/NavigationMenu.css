@@ -1,7 +1,16 @@
+.navbar {
+  padding: 0rem;
+}
+
+.navbar-brand {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
+
 .navbar .navbar-brand {
-    margin-right: 0rem;
-  }
+  margin-right: 0rem;
+}
   
 .navbar .navbar-brand:first-child {
-border-right: 1px solid #545d66;
+  border-right: 1px solid #f8f4ea;
 }

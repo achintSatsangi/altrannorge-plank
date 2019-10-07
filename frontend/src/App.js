@@ -8,15 +8,22 @@ import NavigationMenu from "./NavigationMenu/NavigationMenu";
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="container-fluid">
+      <main className="App">
+        <section className="App-header">
+          <a className="navbar-brand" href="/">
+            Plank App
+          </a>
+        </section>
+        <section className="App-body d-flex align-items-center justify-content-center">
           <Router>
             <Timer path="/" />
             <Graph path="graph" />
           </Router>
-        </div>
-        <NavigationMenu />
-      </div>
+        </section>
+        <section className="App-footer">
+          <NavigationMenu />
+        </section>
+      </main>
     );
   }
 }
