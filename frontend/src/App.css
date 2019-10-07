@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   align-items: center;
-  background-color: #28a745;
+  background-color: #f96d15;
 }
 
 .App-header a {

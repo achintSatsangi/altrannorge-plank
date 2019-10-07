@@ -15,7 +15,7 @@
     margin: 1rem;
     font-size: 3rem;
     font-weight: 600;
-    color: #4e3714;
+    color: #6c6c6c;
     border-radius: 50%;
     height: 10rem;
     width: 10rem;
@@ -36,35 +36,29 @@
     -moz-appearance: none;
     appearance: none;
 
-    color: #4f3814;
+    color: #6c6c6c;
     text-align: center;
     background-color: inherit;
-    border: 1px solid #4e3714;
+    border: 1px solid #6c6c6c;
     border-width: 0px 0px 1px;
     border-radius: 0px;
     font-weight: 600;
 }
 
-.btn-success {
-    color: #fff;
-    background-color: #f0134d;
-    border-color: #f0134d;
-}
-
-.btn-success.disabled, .btn-success:disabled {
-    color: #fff;
-    background-color: #fc4c7b;
-    border-color: #fc4c7b;
-}
-
 .btn-start, .btn-start:hover {
-    color: #f10ecc;
+    color: #ff4057;
     background-color: inherit;
-    border-color: #f10ecc;
+    border-color: #ff4057;
 }
 
 .btn-stop, .btn-stop:hover {
-    color: #f1610e;
+    color: #f1c40f;
     background-color: inherit;
-    border-color: #f1610e;
+    border-color: #f1c40f;
+}
+
+.btn-save, .btn-stop:hover {
+    color: #fff;
+    background-color: #f96d15;
+    border-color: #f96d15;
 }

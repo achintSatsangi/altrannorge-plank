@@ -119,7 +119,7 @@ export default class Timer extends Component {
             type="button"
             onClick={this.onSave}
             disabled={!this.state.selectedUser}
-            className="btn btn-success btn-block mt-4"
+            className="btn btn-save btn-block mt-4"
           >
             Save
           </button>
