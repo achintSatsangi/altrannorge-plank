@@ -15,22 +15,41 @@ export default class Graph extends Component {
   }
 
   async componentDidMount() {
-    await Axios.get("/plank/getAllDataForGraph")
-      .then(response =>
-        this.setState({
-          graphData: response.data,
-          message: "",
-          hideMessage: true
-        })
-      )
-      .catch(error => {
-        this.setState({
-          graphData: {},
-          message: "Oops!!! Something went wrong",
-          hideMessage: false
-        });
-        console.log(error);
-      });
+    await this.getDataAndPlotGraph("/plank/getAllDataForGraph");
+  }
+
+  async getDataAndPlotGraph(url) {
+    await Axios.get(url)
+      .then(res => this.success(res))
+      .catch(err => this.error(err));
+  }
+
+  success(response) {
+    this.setState({
+      graphData: response.data,
+      message: "",
+      hideMessage: true
+    });
+  }
+
+  error(error) {
+    this.setState({
+      graphData: {},
+      message: "Oops!!! Something went wrong",
+      hideMessage: false
+    });
+    console.log(error);
+  }
+
+  getData(duration) {
+    console.log("duration : " + duration);
+    var url = "/plank/getAllDataForGraph";
+    if (duration === "MONTH") {
+      url = "/plank/getDataForGraph/30";
+    } else if (duration === "WEEK") {
+      url = "/plank/getDataForGraph/7";
+    }
+    this.getDataAndPlotGraph(url);
   }
 
   render() {
@@ -67,6 +86,32 @@ export default class Graph extends Component {
     };
     return (
       <div className="Linechart">
+        <nav className="navbar fixed-top navbar-dark bg-dark">
+          <button
+            id="allData"
+            name="allData"
+            className="btn btn-primary"
+            onClick={() => this.getData("ALL")}
+          >
+            All
+          </button>
+          <button
+            id="lastMonth"
+            value="Month"
+            className="btn btn-primary"
+            onClick={() => this.getData("MONTH")}
+          >
+            Month
+          </button>
+          <button
+            id="lastWeek"
+            value="Week"
+            className="btn btn-primary"
+            onClick={() => this.getData("WEEK")}
+          >
+            Week
+          </button>
+        </nav>
         <div>Plank Progress</div>
         <div className="alert alert-danger" hidden={this.state.hideMessage}>
           {this.state.message}

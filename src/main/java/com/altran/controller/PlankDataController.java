@@ -52,4 +52,9 @@ public class PlankDataController {
         return converter.convert(plankDataDao.getAllData());
     }
 
+    @GetMapping("getDataForGraph/{days}")
+    public GraphData getDataForGraph(@PathVariable("days") Integer days) {
+        return converter.convert(plankDataDao.getDataForDays(days));
+    }
+
 }
