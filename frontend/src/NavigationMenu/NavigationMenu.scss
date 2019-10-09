@@ -1,5 +1,8 @@
+@import "../colors.scss";
+
 .navbar {
   padding: 0rem;
+  background-color: $navbarColor;
 }
 
 .navbar-brand {
@@ -12,5 +15,5 @@
 }
   
 .navbar .navbar-brand:first-child {
-  border-right: 1px solid #f8f4ea;
+  // border-right: 1px solid #f8f4ea;
 }
