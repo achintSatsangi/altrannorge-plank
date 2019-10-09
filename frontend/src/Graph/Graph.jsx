@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import Axios from "axios";
 
-import "./Graph.css";
+import "./Graph.scss";
 
 const GraphBody = props => {
   const {graphData, message, showErrorMessage, options} = props;

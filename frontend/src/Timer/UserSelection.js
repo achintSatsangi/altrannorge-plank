@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import "./UserSelection.scss";
 
 export default class UserSelection extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class UserSelection extends Component {
       <select
         onChange={event => this.props.handleChange(event)}
         value={this.props.selectedUser}
-        className="form-control text-center"
+        className="user-selection form-control"
       >
         {options}
       </select>

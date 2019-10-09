@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { navigate } from "@reach/router";
 
 import TimerMachine from "react-timer-machine";
-import "./Timer.css";
+import "./Timer.scss";
 import UserSelection from "./UserSelection";
 import Axios from "axios";
 
