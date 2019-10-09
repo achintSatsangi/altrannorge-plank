@@ -1,30 +1,30 @@
 package com.altran.model;
 
-import com.altran.user.User;
+import com.altran.user.UserDTO;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
 
 @JsonPropertyOrder({"label", "fill","lineTension", "pointBorderWidth", "spanGaps", "data"})
 public class DataSet {
-    private final User user;
+    private final UserDTO user;
     private final boolean fill = false;
     private final double lineTension = 0.1;
     private final Integer pointBorderWidth = 1;
     private final boolean spanGaps = true;
     private final List<Integer> data;
 
-    public DataSet(User user, List<Integer> time) {
+    public DataSet(UserDTO user, List<Integer> time) {
         this.user = user;
         this.data = time;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
     public String getLabel() {
-        return user.name();
+        return user.getVisibleName();
     }
 
     public boolean isFill() {
