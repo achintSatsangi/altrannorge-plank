@@ -18,32 +18,34 @@ afterEach(() => {
   MockAxios.reset();
 });
 
-it("renders start/end button with correct label", () => {
+it("renders start/end button with correct icon", () => {
   act(() => {
     render(<Button handleClick={toggleStartTimer} label="Start" />, container);
   });
   const button = document.querySelector("[data-testid=Start]");
-  expect(button.innerHTML).toBe("Start");
+  const icon = button.querySelector(".material-icons");
+  expect(icon.innerHTML).toBe("play_arrow");
 
   act(() => {
     button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
 
-  expect(button.innerHTML).toBe("Pause");
+  expect(icon.innerHTML).toBe("pause");
 
   act(() => {
     button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
 
-  expect(button.innerHTML).toBe("Resume");
+  expect(icon.innerHTML).toBe("play_arrow");
   expect(MockAxios.get).toHaveBeenCalledTimes(1);
 });
 
-it("renders stop button with correct label", () => {
+it("renders stop button with correct icon", () => {
   act(() => {
     render(<Button handleClick={stopTimer} label="Stop" />, container);
   });
   const button = document.querySelector("[data-testid=Stop]");
-  expect(button.innerHTML).toBe("Stop");
+  const icon = button.querySelector(".material-icons");
+  expect(icon.innerHTML).toBe("stop");
   expect(MockAxios.get).toHaveBeenCalledTimes(1);
 });
