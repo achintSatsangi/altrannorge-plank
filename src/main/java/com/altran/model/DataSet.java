@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
 
-@JsonPropertyOrder({"label", "fill","lineTension", "borderColor", "pointHoverBackgroundColor", "pointBorderWidth", "spanGaps", "data"})
+@JsonPropertyOrder({"label", "fill","lineTension", "pointBorderWidth", "spanGaps", "data"})
 public class DataSet {
     private final User user;
     private final boolean fill = false;
@@ -23,10 +23,6 @@ public class DataSet {
         return user;
     }
 
-    public String getBorderColor() {
-        return user.getColor();
-    }
-
     public String getLabel() {
         return user.name();
     }
@@ -37,10 +33,6 @@ public class DataSet {
 
     public double getLineTension() {
         return lineTension;
-    }
-
-    public String getPointHoverBackgroundColor() {
-        return user.getColor();
     }
 
     public Integer getPointBorderWidth() {
