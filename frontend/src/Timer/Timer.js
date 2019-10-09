@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { navigate } from "@reach/router";
 
 import TimerMachine from "react-timer-machine";
-import "./Timer.css";
+import "./Timer.scss";
 import UserSelection from "./UserSelection";
 import Axios from "axios";
 
@@ -12,21 +12,26 @@ import momentDurationFormatSetup from "moment-duration-format";
 momentDurationFormatSetup(moment);
 
 const Button = props => {
-  let map = {
-    Pause: "success",
-    Resume: "success",
-    Start: "success",
-    Stop: "outline-light"
+  const btnTypeMap = {
+    Pause: "start",
+    Start: "start",
+    Stop: "stop"
   };
-  let btnType = map[props.label];
-  let className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
+  const iconNameMap = {
+    Pause: "pause",
+    Start: "play_arrow",
+    Stop: "stop"
+  };
+  const btnType = btnTypeMap[props.label];
+  const className = ["btn", "btn-circle", `btn-${btnType}`].join(" ");
+  const iconName = iconNameMap[props.label];
   return (
     <button
       onClick={props.handleClick}
       className={className}
       data-testid={props.label}
     >
-      {props.label}
+    <i className="material-icons icon-l">{iconName}</i>
     </button>
   );
 };
@@ -42,84 +47,84 @@ export default class Timer extends Component {
     };
   }
 
+  toggleStartTimer = () => {
+    this.setState({
+      started: true,
+      paused: !this.state.paused
+    });
+  };
+
+  stopTimer = time => {
+    this.setState({
+      started: false,
+      paused: true
+    });
+  };
+
+  onSave = () => {
+    Axios.post("plank/postData", {
+      user: this.state.selectedUser,
+      date: moment().format("YYYY-MM-DD"),
+      plankTimeInSeconds: this.savedTime || 0
+    })
+      .then(function(response) {
+        navigate("graph");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+  onTimerStop = time => {
+    this.savedTime = time.m * 60 + time.s;
+  };
+
+  onChange = e => {
+    this.setState({ selectedUser: e.target.value });
+  };
+
   render() {
     const { started, paused } = this.state;
-    let savedTime = 0;
-
-    const toggleStartTimer = () => {
-      this.setState({
-        started: true,
-        paused: !this.state.paused
-      });
-    };
-
-    const stopTimer = () => {
-      this.setState({
-        started: false,
-        paused: true
-      });
-    };
-
-    const onSave = () => {
-      Axios.post("plank/postData", {
-        user: this.state.selectedUser,
-        date: moment().format("YYYY-MM-DD"),
-        plankTimeInSeconds: this.savedTime || 0
-      })
-        .then(function(response) {
-          navigate("graph");
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    };
-
-    const onTimerStop = time => {
-      this.savedTime = time.m * 60 + time.s;
-    };
-
-    const onChange = e => {
-      this.setState({ selectedUser: e.target.value });
-    };
 
     return (
-      <section className="timerMachine">
-        <span className="timer">
-          <TimerMachine
-            timeStart={0}
-            timeEnd={0}
-            started={started}
-            paused={paused}
-            countdown={false}
-            interval={1000}
-            formatTimer={(time, ms) =>
-              moment.duration(ms, "milliseconds").format("h:mm:ss")
-            }
-            onStop={time => onTimerStop(time)}
-          />
-        </span>
-        <div className="d-flex justify-content-between">
-          <Button handleClick={stopTimer} label={"Stop"} />
+      <>
+        <div className="d-flex align-items-center justify-content-center">
+          <Button handleClick={this.stopTimer} label={"Stop"} />
+          <div className="timer">
+            <TimerMachine
+              timeStart={0}
+              timeEnd={0}
+              started={started}
+              paused={paused}
+              countdown={false}
+              interval={1000}
+              formatTimer={(time, ms) =>
+                moment.duration(ms, "milliseconds").format("h:mm:ss")
+              }
+              onStop={this.onTimerStop}
+            />
+          </div>
           <Button
-            handleClick={toggleStartTimer}
-            label={!started ? "Start" : paused ? "Resume" : "Pause"}
+            handleClick={this.toggleStartTimer}
+            label={started && !paused ? "Pause" : "Start"}
           />
         </div>
+
         <div className="mt-5">
           <UserSelection
-            handleChange={event => onChange(event)}
+            handleChange={event => this.onChange(event)}
             selectedUser={this.state.selectedUser}
           />
           <button
             type="button"
-            onClick={onSave}
+            onClick={this.onSave}
             disabled={!this.state.selectedUser}
-            className="btn btn-success btn-block mt-3"
+            className="btn btn-save btn-block mt-4"
           >
             Save
           </button>
         </div>
-      </section>
+      </>
     );
   }
 }

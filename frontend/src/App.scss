@@ -1,0 +1,31 @@
+
+@import "./colors.scss";
+
+.App {
+  display: grid;
+  grid-template-rows: 50px 1fr 50px;
+  height: 100vh;
+  text-align: center;
+}
+
+.App-header {
+  display: grid;
+  align-items: center;
+  background-color: $navbarColor;
+}
+
+.App-header a {
+  color: $whiteColor;
+}
+
+.App-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $backgroundColor;
+}
+
+.App-footer {
+  display: grid;
+  align-items: center;
+}

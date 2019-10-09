@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
+import "chartjs-plugin-colorschemes";
 import Axios from "axios";
 
-import "./Graph.css";
+import "./Graph.scss";
+
+const GraphBody = props => {
+  const {graphData, message, showErrorMessage, options} = props;
+  
+  if (showErrorMessage) {
+    return( <div className="alert alert-danger">{message}</div> );
+  } else {
+    return( <Line data={graphData} options={options} redraw={true}/> );
+  }
+};
 
 export default class Graph extends Component {
   constructor(props) {
@@ -10,7 +21,7 @@ export default class Graph extends Component {
     this.state = {
       graphData: {},
       message: "",
-      hideMessage: true
+      showErrorMessage: false
     };
   }
 
@@ -42,7 +53,6 @@ export default class Graph extends Component {
   }
 
   getData(duration) {
-    console.log("duration : " + duration);
     var url = "/plank/getAllDataForGraph";
     if (duration === "MONTH") {
       url = "/plank/getDataForGraph/30";
@@ -64,7 +74,7 @@ export default class Graph extends Component {
             display: true,
             ticks: {
               beginAtZero: true,
-              fontColor: "white"
+              fontColor: "black"
             }
           }
         ],
@@ -73,15 +83,20 @@ export default class Graph extends Component {
             display: false,
             ticks: {
               beginAtZero: false,
-              fontColor: "white"
+              fontColor: "black"
             }
           }
-        ],
-        legend: [
-          {
-            position: "bottom"
-          }
         ]
+      },
+      legend: {
+        labels: {
+          usePointStyle: true,
+          boxWidth: 10
+        }
+      },
+      tooltips: {
+        mode: 'nearest',
+        intersect: false
       }
     };
     return (
@@ -113,10 +128,7 @@ export default class Graph extends Component {
           </button>
         </nav>
         <div>Plank Progress</div>
-        <div className="alert alert-danger" hidden={this.state.hideMessage}>
-          {this.state.message}
-        </div>
-        <Line data={this.state.graphData} options={options} redraw={true} />
+        <GraphBody {...this.state} options={options}/>
       </div>
     );
   }

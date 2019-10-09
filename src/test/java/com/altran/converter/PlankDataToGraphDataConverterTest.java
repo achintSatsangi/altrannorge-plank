@@ -38,8 +38,8 @@ class PlankDataToGraphDataConverterTest {
         assertThat(result.getLabels()).hasSize(2)
                 .contains(now().minusDays(2), now());
         assertThat(result.getDataSets()).hasSize(2)
-                .extracting("user", "fill", "lineTension", "spanGaps", "pointBorderWidth", "borderColor")
-                .contains(tuple(ACHINT, false, 0.1, true, 1, ACHINT.getColor()), tuple(RUBEN, false, 0.1, true, 1, RUBEN.getColor()));
+                .extracting("user", "fill", "lineTension", "spanGaps", "pointBorderWidth")
+                .contains(tuple(ACHINT, false, 0.1, true, 1), tuple(RUBEN, false, 0.1, true, 1));
 
         assertThat(result.getDataSets()).hasSize(2);
         assertThat(result.getDataSets().stream().flatMap(d -> d.getData().stream()).collect(Collectors.toList())).contains(100, null, 500);

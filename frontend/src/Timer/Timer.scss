@@ -1,0 +1,40 @@
+@import "../colors.scss";
+
+.timer {
+    margin: 1rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: $fontColor;
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+    line-height: 9rem;
+    background-color: $whiteColor;
+}
+
+.btn-start, .btn-start:hover {
+    color: $primaryColor;
+    background-color: inherit;
+    border-color: $primaryColor;
+}
+
+.btn-stop, .btn-stop:hover {
+    color: $primaryColor;
+    background-color: inherit;
+    border-color: $primaryColor;
+}
+
+.btn-save, .btn-save:hover {
+    color: $fontColor;
+    font-weight: 700;
+    background-color: $secondaryColor;
+    border-color: $secondaryColor;
+}
+
+.btn-circle {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    padding: 0rem;
+    line-height: 0rem;
+}

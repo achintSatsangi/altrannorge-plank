@@ -1,0 +1,14 @@
+@import "../colors.scss";
+
+.user-selection.form-control, .user-selection.form-control:focus {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    color: $fontColor;
+    background-color: inherit;
+    border: 1px solid $fontColor;
+    border-width: 0px 0px 1px;
+    border-radius: 0px;
+    font-weight: 600;
+}
