@@ -26,7 +26,7 @@ export default class UserSelection extends Component {
   render() {
     const options = this.state.users.map((user, index) => (
       <option key={index} value={user.id || ""} disabled={!user}>
-        {user.username || "SELECT USER"}
+        {user.visibleName || "SELECT USER"}
       </option>
     ));
     return (
