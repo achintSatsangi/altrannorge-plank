@@ -2,7 +2,7 @@ package com.altran.converter;
 
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ class PlankDataToGraphDataConverterTest {
 
     @Test
     void should_convert_plank_data_to_graph_data() {
-        GraphData result = classToTest.convert(of(new PlankData(now().minusDays(2), 100, 2), new PlankData(now(), 500, 3)), of(new UserDTO(2, "ACHINT", "Achint Satsangi", null), new UserDTO(3, "RUBEN", "Ruben Dewitte", null)));
+        GraphData result = classToTest.convert(of(new PlankData(now().minusDays(2), 100, 2), new PlankData(now(), 500, 3)), of(new User(2, "ACHINT", "Achint Satsangi", null), new User(3, "RUBEN", "Ruben Dewitte", null)));
 
         assertThat(result.getLabels()).hasSize(2)
                 .contains(now().minusDays(2), now());

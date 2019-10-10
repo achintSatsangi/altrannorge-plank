@@ -1,6 +1,6 @@
 package com.altran.dao;
 
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,14 +20,14 @@ public class UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<UserDTO> getAllUsers() {
+    public List<User> getAllUsers() {
         return jdbcTemplate.query("SELECT * FROM users", new UserDao.UserMapper());
     }
 
     public class UserMapper implements RowMapper
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new UserDTO(rs.getInt("id"), rs.getString("username"), rs.getString("visible_name"), rs.getInt("team_id"));
+            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("visible_name"), rs.getInt("team_id"));
         }
     }
 }

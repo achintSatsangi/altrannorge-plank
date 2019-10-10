@@ -1,7 +1,7 @@
 package com.altran.dao;
 
 import com.altran.Application;
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class UserDaoIntegrationTest {
 
     @Test
     void should_get_all_users() {
-        List<UserDTO> result = userDao.getAllUsers();
+        List<User> result = userDao.getAllUsers();
         assertThat(result).hasSize(8)
                     .extracting("username")
                     .contains("ACHINT", "MELISSA", "RUBEN", "OLE", "PK", "CAMILLA", "SAINYAM", "HENRIK");

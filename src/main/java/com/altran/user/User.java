@@ -1,13 +1,13 @@
 package com.altran.user;
 
-public class UserDTO {
+public class User {
 
     private final int id;
     private final String username;
     private final String visibleName;
     private final Integer teamId;
 
-    public UserDTO(int id, String username, String visibleName, Integer teamId) {
+    public User(int id, String username, String visibleName, Integer teamId) {
         this.id = id;
         this.username = username;
         this.visibleName = visibleName;

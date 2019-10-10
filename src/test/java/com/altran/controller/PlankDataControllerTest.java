@@ -6,7 +6,7 @@ import com.altran.dao.UserDao;
 import com.altran.model.DataSet;
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ class PlankDataControllerTest {
     private UserDao mockUserDao;
     private PlankDataToGraphDataConverter mockConverter;
     private List<PlankData> plankData;
-    private List<UserDTO> users;
+    private List<User> users;
 
     @BeforeEach
     void setUp() {
@@ -35,8 +35,8 @@ class PlankDataControllerTest {
         mockUserDao = mock(UserDao.class);
         classToTest = new PlankDataController(mockPlankDataDao, mockConverter, mockUserDao);
         plankData = List.of(new PlankData(5, now().minusDays(3), 200, 1));
-        users = List.of(new UserDTO(1, "CAMILLA", "Camilla Bakken", null));
-        users.forEach(UserDTO::toString);// For improving coverage :P :P
+        users = List.of(new User(1, "CAMILLA", "Camilla Bakken", null));
+        users.forEach(User::toString);// For improving coverage :P :P
     }
 
     @Test
@@ -71,7 +71,7 @@ class PlankDataControllerTest {
         verify(mockConverter).convert(plankData, users);
 
         assertThat(result.getLabels()).containsExactly(now());
-        assertThat(result.getDataSets().stream().map(DataSet::getUser).map(UserDTO::getUsername).collect(Collectors.toList())).containsExactly("CAMILLA");
+        assertThat(result.getDataSets().stream().map(DataSet::getUser).map(User::getUsername).collect(Collectors.toList())).containsExactly("CAMILLA");
     }
 
 }

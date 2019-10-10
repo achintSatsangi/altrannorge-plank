@@ -1,12 +1,11 @@
 package com.altran.controller;
 
 import com.altran.dao.UserDao;
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,14 +13,14 @@ import static org.mockito.Mockito.when;
 
 public class UserDataControllerTest {
     private UserDataController classToTest;
-    private List<UserDTO> users;
+    private List<User> users;
     private UserDao mockUserDao;
 
     @BeforeEach
     void setUp() {
         mockUserDao = Mockito.mock(UserDao.class);
         classToTest = new UserDataController(mockUserDao);
-        users = List.of(new UserDTO(2, "ACHINT", "Achint", null), new UserDTO(2, "RUBEN", "Ruben", null));
+        users = List.of(new User(2, "ACHINT", "Achint", null), new User(2, "RUBEN", "Ruben", null));
     }
 
     @Test

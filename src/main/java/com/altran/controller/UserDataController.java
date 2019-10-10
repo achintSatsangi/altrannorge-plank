@@ -1,7 +1,7 @@
 package com.altran.controller;
 
 import com.altran.dao.UserDao;
-import com.altran.user.UserDTO;
+import com.altran.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +20,7 @@ public class UserDataController {
     }
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
-    public List<UserDTO> getUsers() {
+    public List<User> getUsers() {
         return userDao.getAllUsers();
     }
 
