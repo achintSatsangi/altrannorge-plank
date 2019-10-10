@@ -53,13 +53,12 @@ public class PlankDataController {
 
     @GetMapping("getAllDataForGraph")
     public GraphData getAllDataForGraph() {
-        List<User> users = userDao.getAllUsers();
-        return converter.convert(plankDataDao.getAllData(), users);
+        return converter.convert(plankDataDao.getAllData(), userDao.getAllUsers());
     }
 
     @GetMapping("getDataForGraph/{days}")
     public GraphData getDataForGraph(@PathVariable("days") Integer days) {
-        return converter.convert(plankDataDao.getDataForDays(days));
+        return converter.convert(plankDataDao.getDataForDays(days), userDao.getAllUsers());
     }
 
 }

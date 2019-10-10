@@ -77,17 +77,19 @@ class PlankDataControllerTest {
     @Test
     void should_get_converted_data_for_graphs_for_input_days() {
         int inputDays = 2;
-        when(mockPlankDataDao.getDataForDays(inputDays)).thenReturn(toBeReturnedFromDao);
-        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(CAMILLA, List.of(1, 2))));
-        when(mockConverter.convert(toBeReturnedFromDao)).thenReturn(graphData);
+        when(mockPlankDataDao.getDataForDays(inputDays)).thenReturn(plankData);
+        when(mockUserDao.getAllUsers()).thenReturn(users);
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(users.get(0), List.of(1, 2))));
+        when(mockConverter.convert(plankData, users)).thenReturn(graphData);
 
         GraphData result = classToTest.getDataForGraph(inputDays);
 
         verify(mockPlankDataDao).getDataForDays(inputDays);
-        verify(mockConverter).convert(toBeReturnedFromDao);
+        verify(mockUserDao).getAllUsers();
+        verify(mockConverter).convert(plankData, users);
 
         assertThat(result.getLabels()).containsExactly(now());
-        assertThat(result.getDataSets().stream().map(DataSet::getUser).collect(Collectors.toList())).containsExactly(CAMILLA);
+        assertThat(result.getDataSets().stream().map(DataSet::getUser).map(u -> u.getUsername()).collect(Collectors.toList())).containsExactly("CAMILLA");
     }
 
 }
