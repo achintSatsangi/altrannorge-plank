@@ -1,6 +1,32 @@
-.Linechart {
-  position: relative;
-  height: 70vh;
-  width: 90vw;
-  vertical-align: top;
+@import "../colors.scss";
+
+
+.graph-filter{
+  margin-bottom: 0.5rem;
+
+  .btn-graph-filter {
+    border-radius: 0rem;
+    color: $primaryColor;
+    padding: .125rem 1rem;
+    border-color: $primaryColor;
+    border-width: 1px 1px 1px 0px;
+
+    &:first-child {
+      border-left-width: 1px;
+      border-top-left-radius: .25rem;
+      border-bottom-left-radius: .25rem;
+    }
+    &:last-child {
+      border-right-width: 1px;
+      border-top-right-radius: .25rem;
+      border-bottom-right-radius: .25rem;
+    }
+  }
+
+  .btn-active {
+    color: $whiteColor;
+    font-weight: 600;
+    background-color: $primaryColor;
+  }
+
 }
