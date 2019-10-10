@@ -31,13 +31,13 @@ public class PlankDataToGraphDataConverter {
                 .collect(toSet());
 
         List<DataSet> dataSets = userIds.stream()
-                .map(userId -> prepareDataSet(userId, labels, plankDataList, users.stream().filter(u -> u.getId() == userId).findFirst().orElseThrow(IllegalStateException::new)))
+                .map(userId -> prepareDataSet(labels, plankDataList, users.stream().filter(u -> u.getId() == userId).findFirst().orElseThrow(IllegalStateException::new)))
                 .collect(toList());
 
         return new GraphData(labels, dataSets);
     }
 
-    private DataSet prepareDataSet(Integer userId, List<LocalDate> labels, List<PlankData> plankDataList, User user) {
+    private DataSet prepareDataSet(List<LocalDate> labels, List<PlankData> plankDataList, User user) {
         List<Integer> plankTimes = labels.stream()
                 .map(label -> getTimeForUserForDate(user, label, plankDataList))
                 .collect(toList());
