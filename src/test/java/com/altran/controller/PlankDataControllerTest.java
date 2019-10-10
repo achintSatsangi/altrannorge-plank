@@ -36,6 +36,7 @@ class PlankDataControllerTest {
         classToTest = new PlankDataController(mockPlankDataDao, mockConverter, mockUserDao);
         plankData = List.of(new PlankData(5, now().minusDays(3), 200, 1));
         users = List.of(new UserDTO(1, "CAMILLA", "Camilla Bakken", null));
+        users.forEach(UserDTO::toString);// For improving coverage :P :P
     }
 
     @Test

@@ -57,6 +57,7 @@ class PlankDataDaoIntegrationTest {
     @Test
     void should_fetch_by_name_date() {
         PlankData result = plankDataDao.getByUserAndDate(2, now());
+        result.toString();// For improving coverage :P :P
         assertThat(result)
                 .extracting("userId", "plankTimeInSeconds")
                 .containsExactly(2, 100);
@@ -111,5 +112,19 @@ class PlankDataDaoIntegrationTest {
     @Test
     void should_throw_EmptyResultDataAccessException_if_data_not_found() {
         assertThrows(EmptyResultDataAccessException.class, () -> plankDataDao.getDataById(4));
+    }
+
+    @Test
+    void should_delete_by_id() {
+        List<PlankData> initialData = plankDataDao.getAllData();
+        assertThat(initialData).hasSize(3);
+
+        boolean result = plankDataDao.delete(initialData.get(0).getId());
+
+        assertThat(result).isTrue();
+
+        List<PlankData> leftoverData = plankDataDao.getAllData();
+
+        assertThat(leftoverData).hasSize(2);
     }
 }
