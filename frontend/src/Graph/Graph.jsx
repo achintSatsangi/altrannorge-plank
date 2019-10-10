@@ -62,6 +62,7 @@ export default class Graph extends Component {
       <>
         <div className="graph-filter">
           <button
+            type="button"
             id="allData"
             name="allData"
             className={ `btn btn-graph-filter ${this.state.filter === "ALL" ? 'btn-active' : ''}` }
@@ -70,6 +71,7 @@ export default class Graph extends Component {
             All
           </button>
           <button
+            type="button"
             id="lastMonth"
             value="Month"
             className={ `btn btn-graph-filter ${this.state.filter === "MONTH" ? 'btn-active' : ''}` }
@@ -78,6 +80,7 @@ export default class Graph extends Component {
             Month
           </button>
           <button
+            type="button"
             id="lastWeek"
             value="Week"
             className={ `btn btn-graph-filter ${this.state.filter === "WEEK" ? 'btn-active' : ''}` }
