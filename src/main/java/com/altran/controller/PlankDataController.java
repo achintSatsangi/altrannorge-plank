@@ -2,8 +2,10 @@ package com.altran.controller;
 
 import com.altran.converter.PlankDataToGraphDataConverter;
 import com.altran.dao.PlankDataDao;
+import com.altran.dao.UserDao;
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
+import com.altran.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,13 @@ public class PlankDataController {
 
     private final PlankDataDao plankDataDao;
     private final PlankDataToGraphDataConverter converter;
+    private final UserDao userDao;
 
     @Autowired
-    public PlankDataController(PlankDataDao plankDataDao, PlankDataToGraphDataConverter converter) {
+    public PlankDataController(PlankDataDao plankDataDao, PlankDataToGraphDataConverter converter, UserDao userDao) {
         this.plankDataDao = plankDataDao;
         this.converter = converter;
+        this.userDao = userDao;
     }
 
     @GetMapping("getData")
@@ -49,7 +53,8 @@ public class PlankDataController {
 
     @GetMapping("getAllDataForGraph")
     public GraphData getAllDataForGraph() {
-        return converter.convert(plankDataDao.getAllData());
+        List<User> users = userDao.getAllUsers();
+        return converter.convert(plankDataDao.getAllData(), users);
     }
 
 }

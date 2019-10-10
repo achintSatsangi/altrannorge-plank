@@ -1,22 +1,42 @@
 package com.altran.user;
 
-import java.util.NoSuchElementException;
-import java.util.stream.Stream;
+public class User {
 
-public enum User {
-    RUBEN,
-    ACHINT,
-    MELISSA,
-    SAINYAM,
-    OLE,
-    HENRIK,
-    PK,
-    CAMILLA;
+    private final int id;
+    private final String username;
+    private final String visibleName;
+    private final Integer teamId;
 
-    public static User of(String userString) {
-        return Stream.of(User.values())
-                .filter(user -> user.name().equals(userString))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("[" + userString + "]"));
+    public User(int id, String username, String visibleName, Integer teamId) {
+        this.id = id;
+        this.username = username;
+        this.visibleName = visibleName;
+        this.teamId = teamId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getVisibleName() {
+        return visibleName;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", visibleName='" + visibleName + '\'' +
+                ", teamId=" + teamId +
+                '}';
     }
 }

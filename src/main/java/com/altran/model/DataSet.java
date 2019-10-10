@@ -24,7 +24,7 @@ public class DataSet {
     }
 
     public String getLabel() {
-        return user.name();
+        return user.getVisibleName();
     }
 
     public boolean isFill() {

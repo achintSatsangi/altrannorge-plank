@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="populate_teams_table" author="achintSatsangi">
+        <preConditions onFail="HALT">
+            <tableExists tableName="teams"/>
+        </preConditions>
+        <insert tableName="teams">
+            <column name="name" type="varchar(255)">Norge 1</column>
+            <column name="location" type="varchar(255)">Oslo</column>
+        </insert>
+        <insert tableName="teams">
+            <column name="name" type="varchar(255)">Norge 2</column>
+            <column name="location" type="varchar(255)">Oslo</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="populate_users_table" author="achintSatsangi">
+        <preConditions onFail="HALT">
+            <tableExists tableName="users"/>
+        </preConditions>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">ACHINT</column>
+            <column name="visible_name" type="varchar(255)">Achint</column>
+            <column name="team_id" type="int">1</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">MELISSA</column>
+            <column name="visible_name" type="varchar(255)">Melissa</column>
+            <column name="team_id" type="int">1</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">RUBEN</column>
+            <column name="visible_name" type="varchar(255)">Ruben</column>
+            <column name="team_id" type="int">1</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">OLE</column>
+            <column name="visible_name" type="varchar(255)">Ole Gule</column>
+            <column name="team_id" type="int">1</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">PK</column>
+            <column name="visible_name" type="varchar(255)">Per Kristian</column>
+            <column name="team_id" type="int">2</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">CAMILLA</column>
+            <column name="visible_name" type="varchar(255)">Camilla Bakken</column>
+            <column name="team_id" type="int">2</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">SAINYAM</column>
+            <column name="visible_name" type="varchar(255)">Sainyam</column>
+            <column name="team_id" type="int">2</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username" type="varchar(255)">HENRIK</column>
+            <column name="visible_name" type="varchar(255)">Henrik</column>
+            <column name="team_id" type="int">1</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="add-user-id-column-in-plank-data" author="achintSatsangi">
+        <addColumn tableName="plank_data">
+            <column name="user_id" type="int"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="populate-user-id-column-in-plank-data" author="achintSatsangi">
+        <sql>
+            update plank_data AS P set user_id=(select u.id from users AS u where u.username = P.username) where 1 = 1;
+        </sql>
+    </changeSet>
+
+    <changeSet id="add_foreign_key_for_user_id_in_plank_data_table" author="achintSatsangi">
+        <addForeignKeyConstraint baseTableName="plank_data"
+                                 baseColumnNames="user_id"
+                                 constraintName="plank_data_user_id_fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="make-user-id-in-plank-data-non-nullable" author="achintSatsangi">
+        <addNotNullConstraint tableName="plank_data" columnName="user_id" columnDataType="int"/>
+    </changeSet>
+
+    <changeSet id="drop-plank_data_constraint" author="achintSatsangi">
+        <dropUniqueConstraint tableName="plank_data" constraintName="plank_data_constraint" uniqueColumns="user, date"/>
+    </changeSet>
+
+    <changeSet id="drop-username-from-plank-data" author="achintSatsangi">
+        <dropColumn tableName="plank_data" columnName="username"/>
+    </changeSet>
+
+    <changeSet id="add-plank_data_constraint-by-userId-date" author="achintSatsangi">
+        <addUniqueConstraint
+                columnNames="user_id, date"
+                constraintName="plank_data_userId_date_uk"
+                tableName="plank_data"/>
+    </changeSet>
+
+</databaseChangeLog>

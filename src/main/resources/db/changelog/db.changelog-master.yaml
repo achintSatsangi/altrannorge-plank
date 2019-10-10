@@ -3,3 +3,7 @@ databaseChangeLog:
       file: ./db/changelog/01-create-plank-data-table.xml
   - include:
       file: ./db/changelog/02-load-historical-data.xml
+  - include:
+      file: ./db/changelog/03-teams-and-users.xml
+  - include:
+      file: ./db/changelog/04-setup-user-data-and-migrate-plank-info.xml

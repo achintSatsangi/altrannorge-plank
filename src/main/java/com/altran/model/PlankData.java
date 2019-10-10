@@ -1,6 +1,5 @@
 package com.altran.model;
 
-import com.altran.user.User;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.time.LocalDate;
@@ -9,31 +8,27 @@ import java.util.Objects;
 public class PlankData {
 
     private final Integer id;
-    private final User user;
     private final LocalDate date;
     private final int plankTimeInSeconds;
+    private final Integer userId;
 
     @JsonCreator
-    public PlankData(Integer id, User user, LocalDate date, int plankTimeInSeconds) {
+    public PlankData(Integer id, LocalDate date, int plankTimeInSeconds, Integer userId) {
         this.id = id;
-        this.user = user;
         this.date = date;
         this.plankTimeInSeconds = plankTimeInSeconds;
+        this.userId = userId;
     }
 
-    public PlankData(User user, LocalDate date, int plankTimeInSeconds) {
+    public PlankData(LocalDate date, int plankTimeInSeconds, Integer userId) {
+        this.userId = userId;
         this.id = null;
-        this.user = user;
         this.date = date;
         this.plankTimeInSeconds = plankTimeInSeconds;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public LocalDate getDate() {
@@ -44,13 +39,17 @@ public class PlankData {
         return plankTimeInSeconds;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
         return "PlankData{" +
                 "id=" + id +
-                ", user='" + user + '\'' +
                 ", date=" + date +
                 ", plankTimeInSeconds=" + plankTimeInSeconds +
+                ", userId=" + userId +
                 '}';
     }
 
@@ -59,14 +58,14 @@ public class PlankData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlankData plankData = (PlankData) o;
-        return id.equals(plankData.id) &&
-                plankTimeInSeconds == plankData.plankTimeInSeconds &&
-                Objects.equals(user, plankData.user) &&
-                Objects.equals(date, plankData.date);
+        return plankTimeInSeconds == plankData.plankTimeInSeconds &&
+                id.equals(plankData.id) &&
+                date.equals(plankData.date) &&
+                userId.equals(plankData.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, date, plankTimeInSeconds);
+        return Objects.hash(id, date, plankTimeInSeconds, userId);
     }
 }

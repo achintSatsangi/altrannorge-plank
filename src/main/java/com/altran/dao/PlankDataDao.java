@@ -1,7 +1,6 @@
 package com.altran.dao;
 
 import com.altran.model.PlankData;
-import com.altran.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -37,7 +36,7 @@ public class PlankDataDao {
     }
 
     public PlankData insert(PlankData plankData) {
-        jdbcTemplate.update("insert into plank_data (username, date, plank_time) values ( ?, ?, ?)", plankData.getUser().name(), plankData.getDate(), plankData.getPlankTimeInSeconds());
+        jdbcTemplate.update("insert into plank_data (user_id, date, plank_time) values ( ?, ?, ?)", plankData.getUserId(), plankData.getDate(), plankData.getPlankTimeInSeconds());
         return plankData;
     }
 
@@ -47,28 +46,28 @@ public class PlankDataDao {
      * @return PlankData
      */
     public PlankData insertById(PlankData plankData) {
-        jdbcTemplate.update("insert into plank_data (id, username, date, plank_time) values (?, ?, ?, ?)",plankData.getId(), plankData.getUser().name(), plankData.getDate(), plankData.getPlankTimeInSeconds());
+        jdbcTemplate.update("insert into plank_data (id, user_id, date, plank_time) values (?, ?, ?, ?)",plankData.getId(), plankData.getUserId(), plankData.getDate(), plankData.getPlankTimeInSeconds());
         return plankData;
     }
 
     public PlankData updateById(PlankData plankData) {
-        jdbcTemplate.update("update plank_data set username=?, date=?, plank_time=? where id=?", plankData.getUser().name(), plankData.getDate(), plankData.getPlankTimeInSeconds(), plankData.getId());
+        jdbcTemplate.update("update plank_data set user_id=?, date=?, plank_time=? where id=?", plankData.getUserId(), plankData.getDate(), plankData.getPlankTimeInSeconds(), plankData.getId());
         return plankData;
     }
 
     public PlankData updateByUserAndDate(PlankData plankData) {
-        jdbcTemplate.update("update plank_data set plank_time=? where username=? and date=?", plankData.getPlankTimeInSeconds(), plankData.getUser().name(), plankData.getDate());
+        jdbcTemplate.update("update plank_data set plank_time=? where user_id=? and date=?", plankData.getPlankTimeInSeconds(), plankData.getUserId(), plankData.getDate());
         return plankData;
     }
 
     /**
      * Gets a record based on the username and date
-     * @param username String username to look for
+     * @param userId Integer userId to look for
      * @param date date to look for
      * @return PlankData
      */
-    public PlankData getByUserAndDate(User username, LocalDate date) {
-        return (PlankData) jdbcTemplate.queryForObject("SELECT * FROM plank_data Where username=? AND date=?", new Object[]{username.name(), date}, new PlankDataRowMapper());
+    public PlankData getByUserAndDate(Integer userId, LocalDate date) {
+        return (PlankData) jdbcTemplate.queryForObject("SELECT * FROM plank_data Where user_id=? AND date=?", new Object[]{userId, date}, new PlankDataRowMapper());
     }
 
     public boolean delete(Integer id) {
@@ -82,7 +81,7 @@ public class PlankDataDao {
     public class PlankDataRowMapper implements RowMapper
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new PlankData(rs.getInt("id"), User.of(rs.getString("username")), rs.getDate("date").toLocalDate(), rs.getInt("plank_time"));
+            return new PlankData(rs.getInt("id"), rs.getDate("date").toLocalDate(), rs.getInt("plank_time"), rs.getInt("user_id"));
         }
     }
 }

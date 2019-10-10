@@ -31,7 +31,7 @@ const Button = props => {
       className={className}
       data-testid={props.label}
     >
-    <i className="material-icons icon-l">{iconName}</i>
+      <i className="material-icons icon-l">{iconName}</i>
     </button>
   );
 };
@@ -43,7 +43,7 @@ export default class Timer extends Component {
     this.state = {
       paused: true,
       started: false,
-      selectedUser: ""
+      selectedUserId: ""
     };
   }
 
@@ -63,7 +63,7 @@ export default class Timer extends Component {
 
   onSave = () => {
     Axios.post("plank/postData", {
-      user: this.state.selectedUser,
+      userId: this.state.selectedUserId,
       date: moment().format("YYYY-MM-DD"),
       plankTimeInSeconds: this.savedTime || 0
     })
@@ -80,7 +80,7 @@ export default class Timer extends Component {
   };
 
   onChange = e => {
-    this.setState({ selectedUser: e.target.value });
+    this.setState({ selectedUserId: e.target.value });
   };
 
   render() {
@@ -113,12 +113,12 @@ export default class Timer extends Component {
         <div className="mt-5">
           <UserSelection
             handleChange={event => this.onChange(event)}
-            selectedUser={this.state.selectedUser}
+            selectedUser={this.state.selectedUserId}
           />
           <button
             type="button"
             onClick={this.onSave}
-            disabled={!this.state.selectedUser}
+            disabled={!this.state.selectedUserId}
             className="btn btn-save btn-block mt-4"
           >
             Save
