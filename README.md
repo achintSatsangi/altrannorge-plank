@@ -79,3 +79,5 @@ origin	git@github.com:achintSatsangi/altrannorge-plank.git (push)
 ```
 git push heroku <<BRANCH_NAME>>:master
 ```
+
+6. Everytime we merge to master the master branch is deployed to TEST and PRODUCTION both.
