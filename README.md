@@ -45,4 +45,28 @@ execute its tests to use the same add `-Pbackend` to your commands. For e.g.
 ```
 mvn clean install -Pbackend
 mvn spring-boot:run -Pbackend
-```   
+```
+
+### Setup TEST environment
+
+Since the application has evolved and has multiple database entities and relationships, the need has arisen to have a 
+persistent test environment where developers can deploy there local changes and play around. Follow the instructions 
+below to be able to access the test environment
+
+1. Install Heroku CLI on your development machine. You can follow the steps : https://devcenter.heroku.com/articles/heroku-cli  
+
+2. Run below command to attach to the TEST instance:
+```
+heroku git:remote -a altrannorge-plank-test
+```
+3. Run `git remote -v` to verify that you are connected properly. you will see output like below:
+```
+heroku	https://git.heroku.com/altrannorge-plank-test.git (fetch)
+heroku	https://git.heroku.com/altrannorge-plank-test.git (push)
+origin	git@github.com:achintSatsangi/altrannorge-plank.git (fetch)
+origin	git@github.com:achintSatsangi/altrannorge-plank.git (push)
+```
+4. To deploy to the test instance, run:
+```
+git push heroku <<BRANCH_NAME>>:master
+```
