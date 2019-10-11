@@ -11,7 +11,7 @@ class App extends Component {
       <main className="App">
         <section className="App-header">
           <a className="navbar-brand" href="/">
-            Plank App (Test)
+            Plank App
           </a>
         </section>
         <section className="App-body">

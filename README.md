@@ -74,7 +74,7 @@ origin	git@github.com:achintSatsangi/altrannorge-plank.git (fetch)
 origin	git@github.com:achintSatsangi/altrannorge-plank.git (push)
 ```
 
-5. To deploy to the test instance, commit your changes to git branch and run:
+5. To deploy to the test instance, commit your changes to git branch (Local commit is enough) or Push to github and RUN:
 
 ```
 git push heroku <<BRANCH_NAME>>:master
