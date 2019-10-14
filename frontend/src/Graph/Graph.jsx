@@ -20,6 +20,13 @@ export default class Graph extends Component {
     await this.getDataAndPlotGraph("/plank/" + this.props.pathForAllData);
   }
 
+  async componentDidUpdate(prevProps) {
+    if (this.props.pathForAllData !== prevProps.pathForAllData) {
+      this.setState({ filter: "ALL" });
+      await this.getDataAndPlotGraph("/plank/" + this.props.pathForAllData);
+    }
+  }
+
   async getDataAndPlotGraph(url) {
     await Axios.get(url)
       .then(res => this.success(res))
