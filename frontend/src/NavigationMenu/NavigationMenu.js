@@ -26,6 +26,9 @@ export default class NavigationMenu extends Component {
         <NavLink to="graph" className="navbar-brand flex-fill">
           <i className="material-icons icon-l">emoji_events</i>
         </NavLink>
+        <NavLink to="teamGraph" className="navbar-brand flex-fill">
+          <i className="material-icons icon-l">group</i>
+        </NavLink>
       </nav>
     );
   }

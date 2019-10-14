@@ -17,7 +17,7 @@ export default class Graph extends Component {
   }
 
   async componentDidMount() {
-    await this.getDataAndPlotGraph("/plank/allUserDataForGraph");
+    await this.getDataAndPlotGraph("/plank/" + this.props.pathForAllData);
   }
 
   async getDataAndPlotGraph(url) {
@@ -44,13 +44,13 @@ export default class Graph extends Component {
   }
 
   getData(duration) {
-    var url = "/plank/allUserDataForGraph";
+    var url = "/plank/" + this.props.pathForAllData;
     this.setState({ filter: "ALL" });
     if (duration === "MONTH") {
-      url = "/plank/userDataForGraph/30";
+      url = "/plank/" + this.props.pathForPeriod + "/30";
       this.setState({ filter: "MONTH" });
     } else if (duration === "WEEK") {
-      url = "/plank/userDataForGraph/7";
+      url = "/plank/" + this.props.pathForPeriod + "/7";
       this.setState({ filter: "WEEK" });
     }
     this.getDataAndPlotGraph(url);
