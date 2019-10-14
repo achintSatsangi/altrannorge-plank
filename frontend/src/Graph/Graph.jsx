@@ -5,7 +5,6 @@ import Axios from "axios";
 import "./Graph.scss";
 import GraphBody from "./GraphBody";
 
-
 export default class Graph extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,7 @@ export default class Graph extends Component {
   }
 
   async componentDidMount() {
-    await this.getDataAndPlotGraph("/plank/getAllDataForGraph");
+    await this.getDataAndPlotGraph("/plank/allUserDataForGraph");
   }
 
   async getDataAndPlotGraph(url) {
@@ -45,13 +44,13 @@ export default class Graph extends Component {
   }
 
   getData(duration) {
-    var url = "/plank/getAllDataForGraph";
+    var url = "/plank/allUserDataForGraph";
     this.setState({ filter: "ALL" });
     if (duration === "MONTH") {
-      url = "/plank/getDataForGraph/30";
+      url = "/plank/userDataForGraph/30";
       this.setState({ filter: "MONTH" });
     } else if (duration === "WEEK") {
-      url = "/plank/getDataForGraph/7";
+      url = "/plank/userDataForGraph/7";
       this.setState({ filter: "WEEK" });
     }
     this.getDataAndPlotGraph(url);
@@ -65,7 +64,9 @@ export default class Graph extends Component {
             type="button"
             id="allData"
             name="allData"
-            className={ `btn btn-graph-filter ${this.state.filter === "ALL" ? 'btn-active' : ''}` }
+            className={`btn btn-graph-filter ${
+              this.state.filter === "ALL" ? "btn-active" : ""
+            }`}
             onClick={() => this.getData("ALL")}
           >
             All
@@ -74,7 +75,9 @@ export default class Graph extends Component {
             type="button"
             id="lastMonth"
             value="Month"
-            className={ `btn btn-graph-filter ${this.state.filter === "MONTH" ? 'btn-active' : ''}` }
+            className={`btn btn-graph-filter ${
+              this.state.filter === "MONTH" ? "btn-active" : ""
+            }`}
             onClick={() => this.getData("MONTH")}
           >
             Month
@@ -83,7 +86,9 @@ export default class Graph extends Component {
             type="button"
             id="lastWeek"
             value="Week"
-            className={ `btn btn-graph-filter ${this.state.filter === "WEEK" ? 'btn-active' : ''}` }
+            className={`btn btn-graph-filter ${
+              this.state.filter === "WEEK" ? "btn-active" : ""
+            }`}
             onClick={() => this.getData("WEEK")}
           >
             Week

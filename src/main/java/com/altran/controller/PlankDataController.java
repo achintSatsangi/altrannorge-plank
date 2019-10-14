@@ -1,11 +1,12 @@
 package com.altran.controller;
 
-import com.altran.converter.PlankDataToGraphDataConverter;
+import com.altran.converter.PlankDataToTeamGraphDataConverter;
+import com.altran.converter.PlankDataToUserGraphDataConverter;
 import com.altran.dao.PlankDataDao;
+import com.altran.dao.TeamDao;
 import com.altran.dao.UserDao;
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
-import com.altran.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,18 @@ import java.util.List;
 public class PlankDataController {
 
     private final PlankDataDao plankDataDao;
-    private final PlankDataToGraphDataConverter converter;
+    private final PlankDataToUserGraphDataConverter userGraphDataConverter;
+    private final PlankDataToTeamGraphDataConverter teamGraphDataConverter;
     private final UserDao userDao;
+    private final TeamDao teamDao;
 
     @Autowired
-    public PlankDataController(PlankDataDao plankDataDao, PlankDataToGraphDataConverter converter, UserDao userDao) {
+    public PlankDataController(PlankDataDao plankDataDao, PlankDataToUserGraphDataConverter userGraphDataConverter, PlankDataToTeamGraphDataConverter teamGraphDataConverter, UserDao userDao, TeamDao teamDao) {
         this.plankDataDao = plankDataDao;
-        this.converter = converter;
+        this.userGraphDataConverter = userGraphDataConverter;
+        this.teamGraphDataConverter = teamGraphDataConverter;
         this.userDao = userDao;
+        this.teamDao = teamDao;
     }
 
     @GetMapping("getData")
@@ -51,14 +56,23 @@ public class PlankDataController {
         return plankDataDao.getDataForDays(days);
     }
 
-    @GetMapping("getAllDataForGraph")
-    public GraphData getAllDataForGraph() {
-        return converter.convert(plankDataDao.getAllData(), userDao.getAllUsers());
+    @GetMapping("allUserDataForGraph")
+    public GraphData userDataForGraph() {
+        return userGraphDataConverter.convert(plankDataDao.getAllData(), userDao.getAllUsers());
     }
 
-    @GetMapping("getDataForGraph/{days}")
-    public GraphData getDataForGraph(@PathVariable("days") Integer days) {
-        return converter.convert(plankDataDao.getDataForDays(days), userDao.getAllUsers());
+    @GetMapping("userDataForGraph/{days}")
+    public GraphData userDataForGraph(@PathVariable("days") Integer days) {
+        return userGraphDataConverter.convert(plankDataDao.getDataForDays(days), userDao.getAllUsers());
     }
 
+    @GetMapping("allTeamDataForGraph")
+    public GraphData teamDataForGraph() {
+        return teamGraphDataConverter.convert(plankDataDao.getAllData(), userDao.getAllUsers(), teamDao.getAllTeams());
+    }
+
+    @GetMapping("teamDataForGraph/{days}")
+    public GraphData teamDataForGraph(@PathVariable("days") Integer days) {
+        return teamGraphDataConverter.convert(plankDataDao.getDataForDays(days), userDao.getAllUsers(), teamDao.getAllTeams());
+    }
 }
