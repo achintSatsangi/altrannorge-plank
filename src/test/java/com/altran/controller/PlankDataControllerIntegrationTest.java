@@ -81,8 +81,17 @@ class PlankDataControllerIntegrationTest {
     }
 
     @Test
-    void should_fetch_graph_data() {
-        String result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/getAllDataForGraph", String.class);
+    void should_fetch_all_user_graph_data() {
+        String result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/allUserDataForGraph", String.class);
+        assertThat(result).isNotEmpty();
+        assertThat(result).contains("labels", "datasets");
+        // Not able to control order of objects. it is different across intellij and maven runs so it creates problems
+        // in CI builds.. so doing simpler checks for now
+    }
+
+    @Test
+    void should_fetch_user_graph_data_for_last_2_days() {
+        String result = this.restTemplate.getForObject("http://localhost:" + port + "/plank/userDataForGraph/2", String.class);
         assertThat(result).isNotEmpty();
         assertThat(result).contains("labels", "datasets");
         // Not able to control order of objects. it is different across intellij and maven runs so it creates problems

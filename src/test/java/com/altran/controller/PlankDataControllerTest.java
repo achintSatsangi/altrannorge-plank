@@ -1,11 +1,14 @@
 package com.altran.controller;
 
-import com.altran.converter.PlankDataToGraphDataConverter;
+import com.altran.converter.PlankDataToTeamGraphDataConverter;
+import com.altran.converter.PlankDataToUserGraphDataConverter;
 import com.altran.dao.PlankDataDao;
+import com.altran.dao.TeamDao;
 import com.altran.dao.UserDao;
 import com.altran.model.DataSet;
 import com.altran.model.GraphData;
 import com.altran.model.PlankData;
+import com.altran.user.Team;
 import com.altran.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,19 +27,26 @@ class PlankDataControllerTest {
     private PlankDataController classToTest;
     private PlankDataDao mockPlankDataDao;
     private UserDao mockUserDao;
-    private PlankDataToGraphDataConverter mockConverter;
+    private TeamDao mockTeamDao;
+    private PlankDataToUserGraphDataConverter mockUserGraphDataConverter;
+    private PlankDataToTeamGraphDataConverter mockTeamGraphDataConverter;
     private List<PlankData> plankData;
     private List<User> users;
+    private List<Team> teams;
 
     @BeforeEach
     void setUp() {
         mockPlankDataDao = mock(PlankDataDao.class);
-        mockConverter = mock(PlankDataToGraphDataConverter.class);
+        mockUserGraphDataConverter = mock(PlankDataToUserGraphDataConverter.class);
+        mockTeamGraphDataConverter = mock(PlankDataToTeamGraphDataConverter.class);
         mockUserDao = mock(UserDao.class);
-        classToTest = new PlankDataController(mockPlankDataDao, mockConverter, mockUserDao);
+        mockTeamDao = mock(TeamDao.class);
+        classToTest = new PlankDataController(mockPlankDataDao, mockUserGraphDataConverter, mockTeamGraphDataConverter, mockUserDao, mockTeamDao);
         plankData = List.of(new PlankData(5, now().minusDays(3), 200, 1));
-        users = List.of(new User(1, "CAMILLA", "Camilla Bakken", null));
+        users = List.of(new User(1, "CAMILLA", "Camilla Bakken", 1));
         users.forEach(User::toString);// For improving coverage :P :P
+        teams = List.of(new Team(1, "Team 1", "Oslo"));
+        teams.forEach(Team::toString);
     }
 
     @Test
@@ -58,38 +68,76 @@ class PlankDataControllerTest {
     }
 
     @Test
-    void should_get_converted_data_for_graphs() {
+    void should_get_converted_data_for_user_graphs() {
         when(mockPlankDataDao.getAllData()).thenReturn(plankData);
-        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(users.get(0), List.of(1, 2))));
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(users.get(0).getVisibleName(), List.of(1, 2))));
         when(mockUserDao.getAllUsers()).thenReturn(users);
-        when(mockConverter.convert(plankData, users)).thenReturn(graphData);
+        when(mockUserGraphDataConverter.convert(plankData, users)).thenReturn(graphData);
 
-        GraphData result = classToTest.getAllDataForGraph();
+        GraphData result = classToTest.userDataForGraph();
 
         verify(mockPlankDataDao).getAllData();
         verify(mockUserDao).getAllUsers();
-        verify(mockConverter).convert(plankData, users);
+        verify(mockUserGraphDataConverter).convert(plankData, users);
 
         assertThat(result.getLabels()).containsExactly(now());
-        assertThat(result.getDataSets().stream().map(DataSet::getUser).map(User::getUsername).collect(Collectors.toList())).containsExactly("CAMILLA");
+        assertThat(result.getDataSets().stream().map(DataSet::getLabel).collect(Collectors.toList())).containsExactly("Camilla Bakken");
     }
 
     @Test
-    void should_get_converted_data_for_graphs_for_input_days() {
+    void should_get_converted_data_for_user_graphs_for_input_days() {
         int inputDays = 2;
         when(mockPlankDataDao.getDataForDays(inputDays)).thenReturn(plankData);
         when(mockUserDao.getAllUsers()).thenReturn(users);
-        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(users.get(0), List.of(1, 2))));
-        when(mockConverter.convert(plankData, users)).thenReturn(graphData);
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(users.get(0).getVisibleName(), List.of(1, 2))));
+        when(mockUserGraphDataConverter.convert(plankData, users)).thenReturn(graphData);
 
-        GraphData result = classToTest.getDataForGraph(inputDays);
+        GraphData result = classToTest.userDataForGraph(inputDays);
 
         verify(mockPlankDataDao).getDataForDays(inputDays);
         verify(mockUserDao).getAllUsers();
-        verify(mockConverter).convert(plankData, users);
+        verify(mockUserGraphDataConverter).convert(plankData, users);
 
         assertThat(result.getLabels()).containsExactly(now());
-        assertThat(result.getDataSets().stream().map(DataSet::getUser).map(u -> u.getUsername()).collect(Collectors.toList())).containsExactly("CAMILLA");
+        assertThat(result.getDataSets().stream().map(DataSet::getLabel).collect(Collectors.toList())).containsExactly("Camilla Bakken");
     }
+
+    @Test
+    void should_get_converted_data_for_team_graphs() {
+        when(mockPlankDataDao.getAllData()).thenReturn(plankData);
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(teams.get(0).getName(), List.of(1, 2))));
+        when(mockUserDao.getAllUsers()).thenReturn(users);
+        when(mockTeamDao.getAllTeams()).thenReturn(teams);
+        when(mockTeamGraphDataConverter.convert(plankData, users, teams)).thenReturn(graphData);
+
+        GraphData result = classToTest.teamDataForGraph();
+
+        verify(mockPlankDataDao).getAllData();
+        verify(mockUserDao).getAllUsers();
+        verify(mockTeamGraphDataConverter).convert(plankData, users, teams);
+
+        assertThat(result.getLabels()).containsExactly(now());
+        assertThat(result.getDataSets().stream().map(DataSet::getLabel).collect(Collectors.toList())).containsExactly("Team 1");
+    }
+
+    @Test
+    void should_get_converted_data_for_team_graphs_for_input_days() {
+        int inputDays = 2;
+        when(mockPlankDataDao.getDataForDays(inputDays)).thenReturn(plankData);
+        GraphData graphData = new GraphData(List.of(now()), List.of(new DataSet(teams.get(0).getName(), List.of(1, 2))));
+        when(mockUserDao.getAllUsers()).thenReturn(users);
+        when(mockTeamDao.getAllTeams()).thenReturn(teams);
+        when(mockTeamGraphDataConverter.convert(plankData, users, teams)).thenReturn(graphData);
+
+        GraphData result = classToTest.teamDataForGraph(inputDays);
+
+        verify(mockPlankDataDao).getDataForDays(inputDays);
+        verify(mockUserDao).getAllUsers();
+        verify(mockTeamGraphDataConverter).convert(plankData, users, teams);
+
+        assertThat(result.getLabels()).containsExactly(now());
+        assertThat(result.getDataSets().stream().map(DataSet::getLabel).collect(Collectors.toList())).containsExactly("Team 1");
+    }
+
 
 }

@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @Service
-public class PlankDataToGraphDataConverter {
+public class PlankDataToUserGraphDataConverter {
 
     public GraphData convert(List<PlankData> plankDataList, List<User> users) {
         if(isNull(plankDataList) || plankDataList.isEmpty()) {
@@ -41,7 +41,7 @@ public class PlankDataToGraphDataConverter {
         List<Integer> plankTimes = labels.stream()
                 .map(label -> getTimeForUserForDate(user, label, plankDataList))
                 .collect(toList());
-        return new DataSet(user, plankTimes);
+        return new DataSet(user.getVisibleName(), plankTimes);
     }
 
     private Integer getTimeForUserForDate(User user, LocalDate label, List<PlankData> plankDataList) {
