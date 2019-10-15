@@ -102,7 +102,11 @@ export default class Graph extends Component {
           </button>
         </div>
 
-        <GraphBody {...this.state} />
+        <GraphBody
+          graphData={this.state.graphData}
+          message={this.state.message}
+          showErrorMessage={this.state.showErrorMessage}
+        />
       </>
     );
   }

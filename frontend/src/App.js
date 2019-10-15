@@ -18,11 +18,13 @@ class App extends Component {
           <Router>
             <Timer path="/" />
             <Graph
+              key="userGraph"
               path="graph"
               pathForAllData="allUserDataForGraph"
               pathForPeriod="userDataForGraph"
             />
             <Graph
+              key="teamGraph"
               path="teamGraph"
               pathForAllData="allTeamDataForGraph"
               pathForPeriod="teamDataForGraph"
