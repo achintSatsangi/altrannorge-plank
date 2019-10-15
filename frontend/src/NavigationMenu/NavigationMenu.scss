@@ -3,8 +3,13 @@
 .navbar {
   padding: 0rem;
   background-color: $navbarColor;
+
+  .navbar-brand {
+    margin-right: 0rem;
+
+    &:not(:last-child) {
+      border-right: 1px solid $backgroundColor;
+    }
+  }
 }
 
-.navbar .navbar-brand {
-  margin-right: 0rem;
-}
