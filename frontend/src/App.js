@@ -17,7 +17,18 @@ class App extends Component {
         <section className="App-body">
           <Router>
             <Timer path="/" />
-            <Graph path="graph" />
+            <Graph
+              key="userGraph"
+              path="graph"
+              pathForAllData="allUserDataForGraph"
+              pathForPeriod="userDataForGraph"
+            />
+            <Graph
+              key="teamGraph"
+              path="teamGraph"
+              pathForAllData="allTeamDataForGraph"
+              pathForPeriod="teamDataForGraph"
+            />
           </Router>
         </section>
         <section className="App-footer">
