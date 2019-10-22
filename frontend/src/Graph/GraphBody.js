@@ -14,6 +14,10 @@ export default class GraphBody extends Component {
       scales: {
         xAxes: [
           {
+            type: "time",
+            time: {
+              unit: "day"
+            },
             display: true,
             ticks: {
               beginAtZero: true,
