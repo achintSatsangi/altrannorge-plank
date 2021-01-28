@@ -19,7 +19,7 @@ shell script is for linux or mac environments, similar bat script for windows ca
 
 ## Unit & Integration test environment
 You don't need a working copy of the Postgres DB to be able to build the app as it uses an H2 in memory database for 
-executing the tests. 
+executing the tests. finally completed :D
 
 ## Useful commands
 For application build and test execution
